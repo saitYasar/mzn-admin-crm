@@ -1,0 +1,88 @@
+/* Tablo genel stil */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tablo başlıkları */
+thead tr {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+th {
+  padding: 12px 15px;
+  text-transform: uppercase;
+}
+
+/* Tablo hücreleri */
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Alternatif satır rengi */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover efekti */
+tbody tr:hover {
+  background-color: #f1f7ff;
+  cursor: pointer;
+}
+
+/* Etiketler (giriş ve çıkış) */
+span {
+  /* display: inline-block;
+  margin: 4px 8px 0 0;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 20px;
+  color: black; */
+}
+
+/* Giriş ve çıkış renkleri */
+span.bg-blue-500 {
+  background-color: #007bff;
+}
+
+span.bg-red-500 {
+  background-color: #dc3545;
+}
+/* ::-webkit-inner-spin-button */
+
+.datepicker-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.datepicker-container label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.datepicker-container input {
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.datepicker-container input:focus {
+  border-color: #007bff;
+}
