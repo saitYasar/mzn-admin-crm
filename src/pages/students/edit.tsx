@@ -1,4 +1,5 @@
 import {
+  DateInput,
   Edit,
   ReferenceInput,
   SelectInput,
@@ -35,6 +36,7 @@ export const StudentsEdit = (props: any) => {
         <TextInput source="lastName" placeholder="Soyisim" />
         <TextInput source="email" placeholder="Email" />
         <TextInput source="phone" placeholder="Telefon" />
+        <DateInput source="serviceEndDate" label="Hizmet Bitiş Tarihi" />
         <SelectInput
           source="stage"
           label="Müşteri Durumu"

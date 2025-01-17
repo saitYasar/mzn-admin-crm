@@ -22,6 +22,7 @@ import {
   PrivateLabelStages,
   SuspendStages,
 } from "../../lib/enum/enums";
+import CustomSelectField from "../../components/ra-ui/customSelect";
 
 const PostFilter = (props: any) => (
   <Filter {...props}>
@@ -101,11 +102,6 @@ export const StudentList = (props: any) => (
       <TextField source="email" label="email" />
       <TextField source="phone" label="Telefon" />
       <TextField source="image" label="Resim" />
-      <SelectField
-        source="stage"
-        label="Öğrenci Durumu"
-        choices={getStages("dropshipping")}
-      />
       <SelectField
         source="type"
         label="Müşteri Tipi"
