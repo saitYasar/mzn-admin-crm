@@ -108,6 +108,7 @@ export const LeadsList = (props: any) => (
         ]}
       />
       <DateField source="createDate" label="Oluşturulma Tarihi" />
+      <TextField source="price" label="Teklif" />
       <ShowButton />
       <EditButton />
       <DeleteButton />
