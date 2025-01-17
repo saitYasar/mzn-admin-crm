@@ -1,5 +1,6 @@
 import {
   DateField,
+  FunctionField,
   ReferenceField,
   SelectField,
   Show,
@@ -47,7 +48,7 @@ export const StudentShow = (props: any) => {
         <SelectField
           source="stage"
           label="Öğrenci Durumu"
-          choices={getStages(Type[record.type])}
+          choices={getStages(Type[record?.type])}
         />
         <SelectField
           source="type"
@@ -78,6 +79,22 @@ export const StudentShow = (props: any) => {
           <TextField source="firstName" /> <span> </span>
           <TextField source="lastName" />
         </ReferenceField>
+        <FunctionField
+          label="Yüzde Tamamlanma"
+          render={(record: any) => {
+            if (record?.stage == "99") {
+              return <span>Beklemede %0</span>;
+            }
+            if (record?.stage == "0") {
+              return <span>Başlamadı</span>;
+            }
+            const type = Type[record?.type];
+            const stages = getStages(type);
+            console.log(stages.length);
+            const yuzde = (record.stage / stages.length) * 100;
+            return <span>{yuzde.toFixed()}%</span>;
+          }}
+        />
       </SimpleShowLayout>
     </Show>
   );

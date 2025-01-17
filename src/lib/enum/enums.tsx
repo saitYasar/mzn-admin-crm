@@ -53,6 +53,7 @@ export enum DropshippingStage {
   "Pazarlama ve Reklam" = 5,
   "Büyütme" = 6,
   "Diğer" = 7,
+  "Beklemede" = 99,
 }
 
 export enum PrivateLabelStage {
@@ -64,6 +65,7 @@ export enum PrivateLabelStage {
   "Liste Optimizasyonu" = 6,
   "Pazarlama ve Büyütme" = 7,
   "Diğer" = 8,
+  "Beklemede" = 99,
 }
 export enum ArbitrajStage {
   "Yeni Başladık" = 1,
@@ -73,6 +75,7 @@ export enum ArbitrajStage {
   "Satış Yönetimi" = 5,
   "Büyütme" = 6,
   "Diğer" = 7,
+  "Beklemede" = 99,
 }
 export enum SuspendStage {
   "Yeni Başladık" = 1,
@@ -82,6 +85,7 @@ export enum SuspendStage {
   "Başvuru Yapıldı" = 5,
   "Sorun Çözüldü" = 6,
   "Diğer" = 7,
+  "Beklemede" = 99,
 }
 
 export const DropshippingStages = [
@@ -92,6 +96,7 @@ export const DropshippingStages = [
   { id: "5", name: "Pazarlama ve Reklam" },
   { id: "6", name: "Büyütme" },
   { id: "7", name: "Diğer" },
+  { id: "99", name: "Beklemede" },
 ];
 
 export const PrivateLabelStages = [
@@ -103,6 +108,7 @@ export const PrivateLabelStages = [
   { id: "6", name: "Liste Optimizasyonu" },
   { id: "7", name: "Pazarlama ve Büyütme" },
   { id: "8", name: "Diğer" },
+  { id: "99", name: "Beklemede" },
 ];
 
 export const ArbitrajStages = [
@@ -113,6 +119,7 @@ export const ArbitrajStages = [
   { id: "5", name: "Satış Yönetimi" },
   { id: "6", name: "Büyütme" },
   { id: "7", name: "Diğer" },
+  { id: "99", name: "Beklemede" },
 ];
 
 export const SuspendStages = [
@@ -123,4 +130,5 @@ export const SuspendStages = [
   { id: "5", name: "Başvuru Yapıldı" },
   { id: "6", name: "Sorun Çözüldü" },
   { id: "7", name: "Diğer" },
+  { id: "99", name: "Beklemede" },
 ];
