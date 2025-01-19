@@ -46,6 +46,7 @@ const CustomMenu = (props: any) => {
         primaryText="Görevler"
         leftIcon={<MissionIcon />}
       />
+      <MenuItemLink to="/sale" primaryText="Ciro" leftIcon={<MissionIcon />} />
       {/* <MenuItemLink to="/mesai" primaryText="Mesai" leftIcon={<MissionIcon />} /> */}
       <MenuItemLink
         to="/add-working-hours"

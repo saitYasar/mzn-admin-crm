@@ -26,6 +26,10 @@ import { FeedbackList } from "./pages/feedback/list";
 import { FeedBackShow } from "./pages/feedback/show";
 import { FeedBackCreate } from "./pages/feedback/create";
 import { FeedBackEdit } from "./pages/feedback/edit";
+import { SaleShow } from "./pages/sales/show";
+import { SaleList } from "./pages/sales/list";
+import { SalesCreate } from "./pages/sales/create";
+import { SalesEdit } from "./pages/sales/edit";
 
 const myTheme = deepmerge(defaultTheme, {
   palette: {
@@ -102,6 +106,13 @@ export const App = () => (
       show={FeedBackShow}
       create={FeedBackCreate}
       edit={FeedBackEdit}
+    />
+    <Resource
+      name="sale"
+      list={SaleList}
+      show={SaleShow}
+      create={SalesCreate}
+      edit={SalesEdit}
     />
     <CustomRoutes>
       <Route path="/mesai" element={<EmployeeTable />} />

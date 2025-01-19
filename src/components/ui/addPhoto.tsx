@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-const AddPhoto = ({ record }: { record: any }) => {
+const AddPhoto = ({
+  record,
+  reseaurch,
+}: {
+  record: any;
+  reseaurch: string;
+}) => {
   const uploadUrl = "https://api.mznekip.com/upload/image"; // Replace with your API URL
   const [image, setImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -51,16 +57,19 @@ const AddPhoto = ({ record }: { record: any }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        await fetch(`https://api.mznekip.com/users/update?id=${record.id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...record,
-            image: data.imageUrl,
-          }),
-        })
+        await fetch(
+          `https://api.mznekip.com/${reseaurch}/update?id=${record.id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...record,
+              image: data.imageUrl,
+            }),
+          }
+        )
           .then(() => {
             alert("Başarılı bir şekilde güncellendi.");
           })

@@ -1,4 +1,5 @@
 import {
+  ImageField,
   Show,
   SimpleShowLayout,
   TabbedShowLayout,
@@ -25,12 +26,13 @@ export const UserShow = (props: any) => {
           <TextField source="username" />
           <TextField source="email" />
           <TextField source="phone" />
+          <ImageField source="image" />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Çalışan Hareketleri" path="photo">
           <EmployeeTable record={record} />
         </TabbedShowLayout.Tab>
-        <TabbedShowLayout.Tab label="Çalışan Hareketleri" path="photos">
-          <AddPhoto record={record} />
+        <TabbedShowLayout.Tab label="Çalışan Fotoğrafı" path="photos">
+          <AddPhoto reseaurch="users" record={record} />
         </TabbedShowLayout.Tab>
       </TabbedShowLayout>
     </Show>
