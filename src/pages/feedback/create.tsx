@@ -12,6 +12,12 @@ export const FeedBackCreate = (props: any) => {
     { id: 2, name: "Öneri" },
     { id: 3, name: "Övgü" },
   ];
+  const SelectOptionss = [
+    { id: 1, name: "Geldi" },
+    { id: 2, name: "İlgilendim" },
+    { id: 3, name: "Çözüm Bulamadım" },
+    { id: 4, name: "Çözüldü" },
+  ];
 
   return (
     <Create {...props}>
@@ -22,6 +28,14 @@ export const FeedBackCreate = (props: any) => {
           source="type"
           label={"Bildirim Tipi"}
           choices={SelectOptions}
+        />
+        <TextInput source="customerName" placeholder="İsim" />
+        <TextInput source="customerSurname" placeholder="Soy isim" />
+        <TextInput source="CustomerPhone" placeholder="Müşteri Tel" />
+        <SelectInput
+          source="state"
+          label={"Şikayet Durumu"}
+          choices={SelectOptionss}
         />
         <ReferenceInput label="HakKında" source="targetUser" reference="users">
           <SelectInput optionText="firstName" label="HakKında" />

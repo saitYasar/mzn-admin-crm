@@ -67,6 +67,8 @@ export const FeedbackList = (props: any) => (
   <List {...props} filters={<PostFilter />} exporter={exporter}>
     <Datagrid>
       <TextField source="id" label="İd" />
+      <TextField source="customerName" label="İsim" />
+      <TextField source="customerSurname" label="Soy İsim" />
       <TextField source="note" label="Note" />
       <SelectField
         source="type"
@@ -78,10 +80,21 @@ export const FeedbackList = (props: any) => (
         ]}
       />
       <DateField source="createDate" label="Oluşturulma Tarihi" />
+
       <ReferenceField label="HakKında" source="targetUser" reference="users">
         <TextField source="firstName" /> <span> </span>
         <TextField source="lastName" />
       </ReferenceField>
+      <SelectField
+        source="state"
+        label="Durum"
+        choices={[
+          { id: 1, name: "Geldi" },
+          { id: 2, name: "İlgilendim" },
+          { id: 3, name: "Çözüm Bulamadım" },
+          { id: 4, name: "Çözüldü" },
+        ]}
+      />
       <ReferenceField label="Bildirimi Alan" source="userId" reference="users">
         <TextField source="firstName" /> <span> </span>
         <TextField source="lastName" />
