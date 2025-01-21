@@ -13,6 +13,7 @@ import {
   useShowController,
 } from "react-admin";
 import AddPhoto from "../../components/ui/addPhoto";
+import VerificateSell from "../../components/ra-ui/verificateSell";
 
 export const SellShow = (props: any) => {
   const { record } = useShowController(props);
@@ -51,18 +52,9 @@ export const SellShow = (props: any) => {
           <NumberField source="bonusAmount" label="Alınan Prim" />
           <NumberField source="remainigAmount" label="Kalan Prim" />
         </TabbedShowLayout.Tab>
-        {/* <TabbedShowLayout.Tab label="Çalışan Hareketleri" path="photos">
-          <AddPhoto reseaurch="sale" record={record} />
+        <TabbedShowLayout.Tab label="Satış Gerçekleştir" path="photos">
+          <VerificateSell data={record} />
         </TabbedShowLayout.Tab>
-        <TabbedShowLayout.Tab label="Çalışan Hareketleri" path="photoss">
-          <ImageField
-            className="bigger"
-            source="image"
-            sx={{
-              "& img": { maxWidth: 500, maxHeight: 500, objectFit: "contain" },
-            }}
-          />
-        </TabbedShowLayout.Tab> */}
       </TabbedShowLayout>
     </Show>
   );
