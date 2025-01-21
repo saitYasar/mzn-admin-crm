@@ -30,6 +30,10 @@ import { SaleShow } from "./pages/sales/show";
 import { SaleList } from "./pages/sales/list";
 import { SalesCreate } from "./pages/sales/create";
 import { SalesEdit } from "./pages/sales/edit";
+import { SellList } from "./pages/sell/list";
+import { SellShow } from "./pages/sell/show";
+import { SellEdit } from "./pages/sell/edit";
+import { SellCreate } from "./pages/sell/create";
 
 const myTheme = deepmerge(defaultTheme, {
   palette: {
@@ -113,6 +117,13 @@ export const App = () => (
       show={SaleShow}
       create={SalesCreate}
       edit={SalesEdit}
+    />
+    <Resource
+      name="sell"
+      list={SellList}
+      show={SellShow}
+      edit={SellEdit}
+      create={SellCreate}
     />
     <CustomRoutes>
       <Route path="/mesai" element={<EmployeeTable />} />

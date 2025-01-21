@@ -58,6 +58,7 @@ const CustomMenu = (props: any) => {
         primaryText="Geri Bildirim"
         leftIcon={<MissionIcon />}
       />
+      <MenuItemLink to="/sell" primaryText="Satış" leftIcon={<MissionIcon />} />
 
       {/* {permissions?.authlevel === "admin" && (
                 <MenuItemLink to="/settings" primaryText="Settings" leftIcon={<SettingsIcon />} />

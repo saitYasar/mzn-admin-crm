@@ -1,0 +1,110 @@
+import {
+  List,
+  downloadCSV,
+  Datagrid,
+  TextField,
+  Filter,
+  TextInput,
+  ShowButton,
+  DateField,
+  SelectField,
+  EditButton,
+  DeleteButton,
+  SelectInput,
+  DateInput,
+  ImageField,
+  ReferenceField,
+  NumberField,
+  BooleanField,
+  ReferenceInput,
+  BooleanInput,
+} from "react-admin";
+import jsonExport from "jsonexport/dist";
+import { Role } from "../../lib/enum/enums";
+
+const PostFilter = (props: any) => (
+  <Filter {...props}>
+    <TextInput source="firstName" label="İsim" alwaysOn />
+    <TextInput source="lastName" label="Soy isim" alwaysOn />
+    <TextInput source="phone" label="phone" alwaysOn />
+    <SelectInput
+      source="serviceType"
+      label="Hizmet Tipi"
+      choices={[
+        { id: 0, name: "Tanımlanmadı" },
+        { id: 1, name: "Satış" },
+        { id: 2, name: "Alış" },
+      ]}
+      alwaysOn
+    />
+    <ReferenceInput
+      label="Satan Kişi"
+      source="sellerId"
+      reference="users"
+      alwaysOn
+    >
+      <SelectInput optionText="firstName" label="Satan Kişi" alwaysOn />
+    </ReferenceInput>
+    <BooleanInput source="isContainGuarantee" label="Garantili mi" alwaysOn />
+
+    <DateInput
+      label="Oluşturulma Tarihi Başlangıç"
+      source="day__gte"
+      alwaysOn
+    />
+    <DateInput label="Oluşturulma Tarihi Son" source="day__lte" alwaysOn />
+  </Filter>
+);
+
+const exporter = (posts: any) => {
+  const postsForExport = posts.map((post: any) => {
+    const { ...postForExport } = post; // omit backlinks and author
+    postForExport.isim = post.firstName; // add a field
+    postForExport.soyisim = post.username; // add a field
+    postForExport.email = post.email; // add a field
+    postForExport.telefon = post.phone; // add a field
+    postForExport.rol = Role[post.role]; // add a field
+    delete postForExport.firstName; // remove a field
+    delete postForExport.role;
+    delete postForExport.username; // remove a field
+    delete postForExport.phone; // remove a field
+
+    return postForExport;
+  });
+  jsonExport(postsForExport, {}, (err, csv) => {
+    downloadCSV(csv, "users");
+  });
+};
+
+export const SellList = (props: any) => (
+  <List {...props} filters={<PostFilter />} exporter={exporter}>
+    <Datagrid>
+      <TextField source="id" label="İd" />
+      <TextField source="firstName" label="İsim" />
+      <TextField source="lastName" label="Soy isim" />
+      <TextField source="phone" label="phone" />
+      <DateField source="date" label="Oluşturma Tarihi" />
+      <SelectField
+        source="serviceType"
+        label="Hizmet Tipi"
+        choices={[
+          { id: 0, name: "Tanımlanmadı" },
+          { id: 1, name: "Satış" },
+          { id: 2, name: "Alış" },
+        ]}
+      />
+      <ReferenceField label="Satan Kişi" source="sellerId" reference="users">
+        <TextField source="firstName" /> <span> </span>
+        <TextField source="lastName" />
+      </ReferenceField>
+      <BooleanField source="isContainGuarantee" label="Garantili mi" />
+      <TextField source="buyLocation" label="Satıldığı Lokasyon" />
+      <NumberField source="bonusAmount" label="Alınan Prim" />
+      <NumberField source="remainigAmount" label="Kalan Prim" />
+
+      <ShowButton />
+      <EditButton />
+      <DeleteButton />
+    </Datagrid>
+  </List>
+);
