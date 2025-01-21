@@ -28,6 +28,7 @@ export const SellCreate = (props: any) => {
         <ReferenceInput label="Satan Kişi" source="sellerId" reference="users">
           <SelectInput optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
+        <BooleanInput source="isCompleted" label="Satıldı mı" />
         <BooleanInput source="isContainGuarantee" label="Garantili mi" />
         <TextInput source="BuyLocation" label="Satıldığı Lokasyon" />
         <NumberInput source="bonusAmount" label="Alınan Prim" />

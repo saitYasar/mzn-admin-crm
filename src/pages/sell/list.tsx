@@ -46,6 +46,7 @@ const PostFilter = (props: any) => (
       <SelectInput optionText="firstName" label="Satan Kişi" alwaysOn />
     </ReferenceInput>
     <BooleanInput source="isContainGuarantee" label="Garantili mi" alwaysOn />
+    <BooleanInput source="isCompleted" label="Satıldı mı" alwaysOn />
 
     <DateInput
       label="Oluşturulma Tarihi Başlangıç"

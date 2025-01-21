@@ -31,6 +31,8 @@ export const SellEdit = (props: any) => {
           <SelectInput optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
         <BooleanInput source="isContainGuarantee" label="Garantili mi" />
+        <BooleanInput source="isCompleted" label="Satıldı mı" />
+
         <TextField source="buyLocation" label="Satıldığı Lokasyon" />
         <NumberInput source="bonusAmount" label="Alınan Prim" />
         <NumberInput source="remainigAmount" label="Kalan Prim" />

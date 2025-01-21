@@ -55,6 +55,7 @@ export default function VerificateSell(data: LeadsData | any) {
               },
               body: JSON.stringify({
                 ...data.data,
+                isCompleted: true,
               }),
             })
               .then((response) => {

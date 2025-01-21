@@ -48,12 +48,13 @@ export const SellShow = (props: any) => {
             <TextField source="lastName" />
           </ReferenceField>
           <BooleanField source="isContainGuarantee" label="Garantili mi" />
+          <BooleanField source="isCompleted" label="Satıldı mı" />
           <TextField source="buyLocation" label="Satıldığı Lokasyon" />
           <NumberField source="bonusAmount" label="Alınan Prim" />
           <NumberField source="remainigAmount" label="Kalan Prim" />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Satış Gerçekleştir" path="photos">
-          <VerificateSell data={record} />
+          {!record?.isCompleted && <VerificateSell data={record} />}
         </TabbedShowLayout.Tab>
       </TabbedShowLayout>
     </Show>
