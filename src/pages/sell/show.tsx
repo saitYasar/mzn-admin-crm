@@ -50,7 +50,7 @@ export const SellShow = (props: any) => {
           <BooleanField source="isContainGuarantee" label="Garantili mi" />
           <BooleanField source="isCompleted" label="Satıldı mı" />
           <TextField source="buyLocation" label="Satıldığı Lokasyon" />
-          <NumberField source="bonusAmount" label="Alınan Prim" />
+          <NumberField source="bonusAmount" label="Alınan Tutar" />
           <NumberField source="remainigAmount" label="Kalan Tutar" />
           <NumberField source="totalAmount" label="Toplam Tutar" />
         </TabbedShowLayout.Tab>

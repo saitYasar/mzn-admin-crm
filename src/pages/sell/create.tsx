@@ -31,7 +31,7 @@ export const SellCreate = (props: any) => {
         <BooleanInput source="isCompleted" label="Satıldı mı" />
         <BooleanInput source="isContainGuarantee" label="Garantili mi" />
         <TextInput source="BuyLocation" label="Satıldığı Lokasyon" />
-        <NumberInput source="bonusAmount" label="Alınan Prim" />
+        <NumberInput source="bonusAmount" label="Alınan Tutar" />
         <NumberInput source="remainigAmount" label="Kalan Prim" />
         <NumberInput source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>

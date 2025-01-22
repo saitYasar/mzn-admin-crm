@@ -34,7 +34,7 @@ export const SellEdit = (props: any) => {
         <BooleanInput source="isCompleted" label="Satıldı mı" />
 
         <TextField source="buyLocation" label="Satıldığı Lokasyon" />
-        <NumberInput source="bonusAmount" label="Alınan Prim" />
+        <NumberInput source="bonusAmount" label="Alınan Tutar" />
         <NumberInput source="remainigAmount" label="Kalan Prim" />
         <NumberInput source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
