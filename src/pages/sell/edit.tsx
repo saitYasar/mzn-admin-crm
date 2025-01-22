@@ -36,6 +36,7 @@ export const SellEdit = (props: any) => {
         <TextField source="buyLocation" label="Satıldığı Lokasyon" />
         <NumberInput source="bonusAmount" label="Alınan Prim" />
         <NumberInput source="remainigAmount" label="Kalan Prim" />
+        <NumberInput source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
     </Edit>
   );

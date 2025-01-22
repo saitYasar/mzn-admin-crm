@@ -33,6 +33,7 @@ export const SellCreate = (props: any) => {
         <TextInput source="BuyLocation" label="Satıldığı Lokasyon" />
         <NumberInput source="bonusAmount" label="Alınan Prim" />
         <NumberInput source="remainigAmount" label="Kalan Prim" />
+        <NumberInput source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
     </Create>
   );

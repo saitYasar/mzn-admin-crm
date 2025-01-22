@@ -51,7 +51,8 @@ export const SellShow = (props: any) => {
           <BooleanField source="isCompleted" label="Satıldı mı" />
           <TextField source="buyLocation" label="Satıldığı Lokasyon" />
           <NumberField source="bonusAmount" label="Alınan Prim" />
-          <NumberField source="remainigAmount" label="Kalan Prim" />
+          <NumberField source="remainigAmount" label="Kalan Tutar" />
+          <NumberField source="totalAmount" label="Toplam Tutar" />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Satış Gerçekleştir" path="photos">
           {!record?.isCompleted && <VerificateSell data={record} />}
