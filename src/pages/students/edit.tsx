@@ -59,14 +59,14 @@ export const StudentsEdit = (props: any) => {
           reference="users"
           label="Atanan Danışman"
         >
-          <SelectInput optionText="firstName" />
+          <SelectInput optionText="firstName" label={"Atanan Danışman"} />
         </ReferenceInput>
         <ReferenceInput
           source="confirmUser"
           reference="users"
           label="Onaylayan Danışman"
         >
-          <SelectInput optionText="firstName" />
+          <SelectInput optionText="firstName" label="Onaylayan Danışman" />
         </ReferenceInput>
       </SimpleForm>
     </Edit>

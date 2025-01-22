@@ -12,6 +12,7 @@ import {
   DateInput,
   ReferenceField,
   ReferenceInput,
+  BooleanField,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
 import { Role } from "../../lib/enum/enums";
@@ -99,6 +100,11 @@ export const FeedbackList = (props: any) => (
         <TextField source="firstName" /> <span> </span>
         <TextField source="lastName" />
       </ReferenceField>
+      <BooleanField
+        source="didWriteOnComplaint"
+        label={"Şikayet Vara yazıldı mı"}
+      />
+      <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
       <ShowButton />
     </Datagrid>
   </List>

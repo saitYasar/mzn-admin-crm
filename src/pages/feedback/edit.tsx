@@ -1,4 +1,5 @@
 import {
+  BooleanInput,
   Edit,
   ReferenceInput,
   SelectInput,
@@ -41,13 +42,11 @@ export const FeedBackEdit = (props: any) => {
         <ReferenceInput label="HakKında" source="targetUser" reference="users">
           <SelectInput optionText="firstName" label="HakKında" />
         </ReferenceInput>
-        <ReferenceInput
-          label="Bildirimi Alan"
-          source="userId"
-          reference="users"
-        >
-          <SelectInput optionText="firstName" label="Bildirimi Alan" />
-        </ReferenceInput>
+        <BooleanInput
+          source="didWriteOnComplaint"
+          label={"Şikayet Vara yazıldı mı"}
+        />
+        <TextInput source="teacherNote" placeholder="Öğretmen Açıklama" />
       </SimpleForm>
     </Edit>
   );

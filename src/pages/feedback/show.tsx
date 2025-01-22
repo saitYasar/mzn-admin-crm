@@ -1,4 +1,5 @@
 import {
+  BooleanField,
   DateField,
   ReferenceField,
   SelectField,
@@ -11,16 +12,6 @@ import {
 } from "react-admin";
 
 export const FeedBackShow = (props: any) => {
-  // "id": 1,
-  //           "userId": 1,
-  //           "targetUser": 1,
-  //           "note": "Bence salih saiti kovacak",
-  //           "createDate": "2025-01-14T00:00:00",
-  //           "type": 0,
-  //           "customerName": "",
-  //           "customerSurname": "",
-  //           "customerPhone": "",
-  //           "state": 0
   return (
     <Show {...props}>
       <TabbedShowLayout
@@ -33,8 +24,7 @@ export const FeedBackShow = (props: any) => {
           <TextField source="note" label="Note" />
           <TextField source="customerName" label="İsim" />
           <TextField source="customerSurname" label="Soy İsim" />
-          <TextField source="CustomerPhone" placeholder="Müşteri Tel" />
-
+          <TextField source="customerPhone" placeholder="Müşteri Tel" />
           <SelectField
             source="type"
             label="Bildirim Tipi"
@@ -71,6 +61,11 @@ export const FeedBackShow = (props: any) => {
               { id: 4, name: "Çözüldü" },
             ]}
           />
+          <BooleanField
+            source="didWriteOnComplaint"
+            label={"Şikayet Vara yazıldı mı"}
+          />
+          <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
         </TabbedShowLayout.Tab>
       </TabbedShowLayout>
     </Show>

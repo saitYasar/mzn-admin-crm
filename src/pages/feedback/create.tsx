@@ -1,4 +1,5 @@
 import {
+  BooleanInput,
   Create,
   ReferenceInput,
   SelectInput,
@@ -19,11 +20,21 @@ export const FeedBackCreate = (props: any) => {
     { id: 4, name: "Çözüldü" },
   ];
 
+  const transform = (formData: any) => ({
+    note: formData.note,
+    type: formData.type,
+    customerName: formData.customerName,
+    customerSurname: formData.customerSurname,
+    CustomerPhone: formData.CustomerPhone,
+    state: formData.state,
+    targetUser: formData.targetUser,
+    userId: localStorage.getItem("id"),
+  });
+
   return (
-    <Create {...props}>
+    <Create transform={transform} {...props}>
       <SimpleForm>
         <TextInput source="note" placeholder="Note" />
-
         <SelectInput
           source="type"
           label={"Bildirim Tipi"}
@@ -40,13 +51,11 @@ export const FeedBackCreate = (props: any) => {
         <ReferenceInput label="HakKında" source="targetUser" reference="users">
           <SelectInput optionText="firstName" label="HakKında" />
         </ReferenceInput>
-        <ReferenceInput
-          label="Bildirimi Alan"
-          source="userId"
-          reference="users"
-        >
-          <SelectInput optionText="firstName" label="Bildirimi Alan" />
-        </ReferenceInput>
+        <BooleanInput
+          source="didWriteOnComplaint"
+          label={"Şikayet Vara yazıldı mı"}
+        />
+        <TextInput source="teacherNote" placeholder="Öğretmen Açıklama" />
       </SimpleForm>
     </Create>
   );
