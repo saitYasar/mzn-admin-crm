@@ -22,9 +22,11 @@ export const SellEdit = (props: any) => {
           source="serviceType"
           label="Hizmet Tipi"
           choices={[
-            { id: 0, name: "Tanımlanmadı" },
-            { id: 1, name: "Satış" },
-            { id: 2, name: "Alış" },
+            { id: "0", name: "Tanımlanmadı" },
+            { id: "1", name: "Dropshipping" },
+            { id: "2", name: "Arbitraj" },
+            { id: "3", name: "PrivateLabel" },
+            { id: "4", name: "Suspend" },
           ]}
         />
         <ReferenceInput label="Satan Kişi" source="sellerId" reference="users">

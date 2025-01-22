@@ -12,7 +12,6 @@ interface LeadsData {
 
 export default function VerificateSell(data: LeadsData | any) {
   const id = localStorage.getItem("id");
-  console.log(data.data);
 
   const VerificateLeads = () => {
     if (
@@ -22,6 +21,8 @@ export default function VerificateSell(data: LeadsData | any) {
       data.data.phone |
       data.data.serviceType
     ) {
+      console.log(data);
+
       fetch("https://api.mznekip.com/students/create", {
         method: "POST",
         headers: {

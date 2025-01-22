@@ -35,8 +35,10 @@ export const SellShow = (props: any) => {
             label="Hizmet Tipi"
             choices={[
               { id: 0, name: "Tanımlanmadı" },
-              { id: 1, name: "Satış" },
-              { id: 2, name: "Alış" },
+              { id: 1, name: "Dropshipping" },
+              { id: 2, name: "Arbitraj" },
+              { id: 3, name: "PrivateLabel" },
+              { id: 4, name: "Suspend" },
             ]}
           />
           <ReferenceField
