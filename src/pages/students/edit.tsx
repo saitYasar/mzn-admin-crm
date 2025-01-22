@@ -45,6 +45,7 @@ export const StudentsEdit = (props: any) => {
         <SelectInput
           source="type"
           label="Müşteri Tipi"
+          disabled
           choices={[
             { id: 0, name: "Tanımlanmadı" },
             { id: 1, name: "Dropshipping" },
