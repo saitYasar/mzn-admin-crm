@@ -93,46 +93,55 @@ const exporter = (posts: any) => {
   });
 };
 
-export const StudentList = (props: any) => (
-  <List {...props} filters={<PostFilter />} exporter={exporter}>
-    <Datagrid>
-      <TextField source="id" label="İd" />
-      <TextField source="firstName" label="İsim" />
-      <TextField source="lastName" label="Soyisim" />
-      <TextField source="email" label="email" />
-      <TextField source="phone" label="Telefon" />
-      <TextField source="image" label="Resim" />
-      <SelectField
-        source="type"
-        label="Müşteri Tipi"
-        choices={[
-          { id: 0, name: "Tanımlanmadı" },
-          { id: 1, name: "Dropshipping" },
-          { id: 2, name: "Arbitraj" },
-          { id: 3, name: "PrivateLabel" },
-          { id: 4, name: "Suspend" },
-        ]}
-      />
-      <DateField source="createDate" label="Oluşturulma Tarihi" />
-      <ReferenceField
-        label="Atanan Danışman"
-        source="leadUser"
-        reference="users"
-      >
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
-      </ReferenceField>
-      <ReferenceField
-        label="Onaylayan Danışman"
-        source="confirmUser"
-        reference="users"
-      >
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
-      </ReferenceField>
-      <ShowButton />
-      <EditButton />
-      <DeleteButton />
-    </Datagrid>
-  </List>
-);
+export const StudentList = (props: any) => {
+  const filter = localStorage.getItem("id");
+  const isAdmin = localStorage.getItem("role");
+  return (
+    <List
+      {...props}
+      filters={<PostFilter />}
+      exporter={exporter}
+      filter={isAdmin !== "2" && { leadUser: filter }}
+    >
+      <Datagrid>
+        <TextField source="id" label="İd" />
+        <TextField source="firstName" label="İsim" />
+        <TextField source="lastName" label="Soyisim" />
+        <TextField source="email" label="email" />
+        <TextField source="phone" label="Telefon" />
+        <TextField source="image" label="Resim" />
+        <SelectField
+          source="type"
+          label="Müşteri Tipi"
+          choices={[
+            { id: 0, name: "Tanımlanmadı" },
+            { id: 1, name: "Dropshipping" },
+            { id: 2, name: "Arbitraj" },
+            { id: 3, name: "PrivateLabel" },
+            { id: 4, name: "Suspend" },
+          ]}
+        />
+        <DateField source="createDate" label="Oluşturulma Tarihi" />
+        <ReferenceField
+          label="Atanan Danışman"
+          source="leadUser"
+          reference="users"
+        >
+          <TextField source="firstName" /> <span> </span>
+          <TextField source="lastName" />
+        </ReferenceField>
+        <ReferenceField
+          label="Onaylayan Danışman"
+          source="confirmUser"
+          reference="users"
+        >
+          <TextField source="firstName" /> <span> </span>
+          <TextField source="lastName" />
+        </ReferenceField>
+        <ShowButton />
+        <EditButton />
+        <DeleteButton />
+      </Datagrid>
+    </List>
+  );
+};

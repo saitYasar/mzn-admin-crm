@@ -17,10 +17,11 @@ export default (type: any, params: any) => {
         }
         return response.json();
       })
-      .then(({ token, id, image }) => {
+      .then(({ token, id, image, role }) => {
         localStorage.setItem("token", token);
         localStorage.setItem("id", id);
         localStorage.setItem("image", image);
+        localStorage.setItem("role", role);
       });
   } else if (type === AUTH_LOGOUT) {
     localStorage.removeItem("token");

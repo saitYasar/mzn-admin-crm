@@ -64,48 +64,61 @@ const exporter = (posts: any) => {
     downloadCSV(csv, "users");
   });
 };
-export const FeedbackList = (props: any) => (
-  <List {...props} filters={<PostFilter />} exporter={exporter}>
-    <Datagrid>
-      <TextField source="id" label="İd" />
-      <TextField source="customerName" label="İsim" />
-      <TextField source="customerSurname" label="Soy İsim" />
-      <TextField source="note" label="Note" />
-      <SelectField
-        source="type"
-        label="Bildirim Tipi"
-        choices={[
-          { id: 1, name: "Şikayet" },
-          { id: 2, name: "Öneri" },
-          { id: 3, name: "Övgü" },
-        ]}
-      />
-      <DateField source="createDate" label="Oluşturulma Tarihi" />
+export const FeedbackList = (props: any) => {
+  const filter = localStorage.getItem("id");
+  const isAdmin = localStorage.getItem("role");
+  return (
+    <List
+      {...props}
+      filters={<PostFilter />}
+      exporter={exporter}
+      filter={isAdmin !== "2" && { targetUser: filter }}
+    >
+      <Datagrid>
+        <TextField source="id" label="İd" />
+        <TextField source="customerName" label="İsim" />
+        <TextField source="customerSurname" label="Soy İsim" />
+        <TextField source="note" label="Note" />
+        <SelectField
+          source="type"
+          label="Bildirim Tipi"
+          choices={[
+            { id: 1, name: "Şikayet" },
+            { id: 2, name: "Öneri" },
+            { id: 3, name: "Övgü" },
+          ]}
+        />
+        <DateField source="createDate" label="Oluşturulma Tarihi" />
 
-      <ReferenceField label="HakKında" source="targetUser" reference="users">
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
-      </ReferenceField>
-      <SelectField
-        source="state"
-        label="Durum"
-        choices={[
-          { id: 1, name: "Geldi" },
-          { id: 2, name: "İlgilendim" },
-          { id: 3, name: "Çözüm Bulamadım" },
-          { id: 4, name: "Çözüldü" },
-        ]}
-      />
-      <ReferenceField label="Bildirimi Alan" source="userId" reference="users">
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
-      </ReferenceField>
-      <BooleanField
-        source="didWriteOnComplaint"
-        label={"Şikayet Vara yazıldı mı"}
-      />
-      <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
-      <ShowButton />
-    </Datagrid>
-  </List>
-);
+        <ReferenceField label="HakKında" source="targetUser" reference="users">
+          <TextField source="firstName" /> <span> </span>
+          <TextField source="lastName" />
+        </ReferenceField>
+        <SelectField
+          source="state"
+          label="Durum"
+          choices={[
+            { id: 1, name: "Geldi" },
+            { id: 2, name: "İlgilendim" },
+            { id: 3, name: "Çözüm Bulamadım" },
+            { id: 4, name: "Çözüldü" },
+          ]}
+        />
+        <ReferenceField
+          label="Bildirimi Alan"
+          source="userId"
+          reference="users"
+        >
+          <TextField source="firstName" /> <span> </span>
+          <TextField source="lastName" />
+        </ReferenceField>
+        <BooleanField
+          source="didWriteOnComplaint"
+          label={"Şikayet Vara yazıldı mı"}
+        />
+        <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
+        <ShowButton />
+      </Datagrid>
+    </List>
+  );
+};
