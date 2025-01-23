@@ -7,8 +7,19 @@ import {
 } from "react-admin";
 
 export const StudentCreate = (props: any) => {
+  const transform = (formData: any) => ({
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phone: formData.phone,
+    serviceEndDate: formData.serviceEndDate,
+    status: formData.status,
+    type: formData.type,
+    call: formData.call,
+    image: "",
+  });
   return (
-    <Create {...props}>
+    <Create transform={transform} {...props}>
       <SimpleForm>
         <TextInput source="firstName" placeholder="İsim" />
         <TextInput source="lastName" placeholder="Soyisim" />
@@ -42,7 +53,6 @@ export const StudentCreate = (props: any) => {
           ]}
         />
         <TextInput source="call" placeholder="Arama" />
-        <TextInput source="image" placeholder="Resimler" />
       </SimpleForm>
     </Create>
   );

@@ -54,7 +54,7 @@ export const StudentsEdit = (props: any) => {
             { id: 4, name: "Suspend" },
           ]}
         />
-        <TextInput source="image" placeholder="Resimler" />
+        {/* <TextInput source="image" placeholder="Resimler" /> */}
         <ReferenceInput
           source="leadUser"
           reference="users"

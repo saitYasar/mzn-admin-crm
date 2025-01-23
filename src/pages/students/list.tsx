@@ -109,7 +109,7 @@ export const StudentList = (props: any) => {
         <TextField source="lastName" label="Soyisim" />
         <TextField source="email" label="email" />
         <TextField source="phone" label="Telefon" />
-        <TextField source="image" label="Resim" />
+        <TextField source="image" label="Eğitim Bitim Resim" />
         <SelectField
           source="type"
           label="Müşteri Tipi"
