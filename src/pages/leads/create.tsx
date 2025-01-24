@@ -1,8 +1,19 @@
 import { Create, SelectInput, SimpleForm, TextInput } from "react-admin";
 
 export const LeadsCreate = (props: any) => {
+  const transform = (formData: any) => ({
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phone: formData.phone,
+    status: formData.status,
+    type: formData.type,
+    price: formData.price,
+    call: "1",
+    images: "",
+  });
   return (
-    <Create {...props}>
+    <Create transform={transform} {...props}>
       <SimpleForm>
         <TextInput source="firstName" placeholder="İsim" />
         <TextInput source="lastName" placeholder="Soyisim" />
@@ -35,8 +46,8 @@ export const LeadsCreate = (props: any) => {
           ]}
         />
         <TextInput source="price" placeholder="Teklif" />
-        <TextInput source="call" placeholder="Arama" />
-        <TextInput source="images" placeholder="Resimler" />
+        {/* <TextInput source="call" placeholder="Arama" />
+        <TextInput source="images" placeholder="Resimler" /> */}
       </SimpleForm>
     </Create>
   );
