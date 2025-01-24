@@ -11,10 +11,10 @@ const AddLoginDate = () => {
       return;
     }
 
-    if (!note.trim()) {
-      alert("Lütfen bir not girin!");
-      return;
-    }
+    // if (!note.trim()) {
+    //   alert("Lütfen bir not girin!");
+    //   return;
+    // }
 
     const currentDateTime = new Date().toLocaleString("tr-TR");
     fetch(`https://api.mznekip.com/shift/create`, {
