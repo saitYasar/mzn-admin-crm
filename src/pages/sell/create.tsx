@@ -10,8 +10,21 @@ import {
 } from "react-admin";
 
 export const SellCreate = (props: any) => {
+  const transform = (formData: any) => ({
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    phone: formData.phone,
+    serviceType: formData.serviceType,
+    sellerId: formData.sellerId,
+    isCompleted: false,
+    isContainGuarantee: formData.isContainGuarantee,
+    BuyLocation: formData.BuyLocation,
+    bonusAmount: formData.bonusAmount,
+    remainigAmount: formData.remainigAmount,
+    totalAmount: formData.totalAmount,
+  });
   return (
-    <Create {...props}>
+    <Create transform={transform} {...props}>
       <SimpleForm>
         <TextInput source="firstName" label="İsim" />
         <TextInput source="lastName" label="Soy isim" />
@@ -30,11 +43,10 @@ export const SellCreate = (props: any) => {
         <ReferenceInput label="Satan Kişi" source="sellerId" reference="users">
           <SelectInput optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
-        <BooleanInput source="isCompleted" label="Satıldı mı" />
         <BooleanInput source="isContainGuarantee" label="Garantili mi" />
         <TextInput source="BuyLocation" label="Satıldığı Lokasyon" />
         <NumberInput source="bonusAmount" label="Alınan Tutar" />
-        <NumberInput source="remainigAmount" label="Kalan Prim" />
+        <NumberInput source="remainigAmount" label="Kalan Tutar" />
         <NumberInput source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
     </Create>

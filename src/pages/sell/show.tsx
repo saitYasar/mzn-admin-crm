@@ -17,6 +17,8 @@ import VerificateSell from "../../components/ra-ui/verificateSell";
 
 export const SellShow = (props: any) => {
   const { record } = useShowController(props);
+  console.log(record);
+
   return (
     <Show {...props}>
       <TabbedShowLayout
