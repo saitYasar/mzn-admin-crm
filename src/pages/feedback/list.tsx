@@ -36,11 +36,21 @@ const PostFilter = (props: any) => (
       alwaysOn
     />
     <DateInput label="Oluşturulma Tarihi Son" source="day__lte" alwaysOn />
-    <ReferenceInput label="HakKında" source="targetUser" reference="users">
+    <ReferenceInput
+      label="HakKında"
+      source="targetUser"
+      reference="users"
+      alwaysOn
+    >
       <SelectInput optionText="firstName" label="HakKında" />
     </ReferenceInput>
-    <ReferenceInput label="Bildirimi Alan" source="userId" reference="users">
-      <SelectInput optionText="firstName" label="Bildirimi Alan" />
+    <ReferenceInput
+      label="Bildirimi Alan"
+      source="userId"
+      reference="users"
+      alwaysOn
+    >
+      <SelectInput optionText="firstName" label="Bildirimi Alan" alwaysOn />
     </ReferenceInput>
   </Filter>
 );

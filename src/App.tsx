@@ -1,6 +1,6 @@
 import { Admin, CustomRoutes, defaultTheme, Resource } from "react-admin";
 import dataProvider from "./dataProvider";
-import { Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import authProvider from "./authProvider";
 import { UserList } from "./pages/users/list";
 import { UserShow } from "./pages/users/show";
@@ -34,6 +34,7 @@ import { SellList } from "./pages/sell/list";
 import { SellShow } from "./pages/sell/show";
 import { SellEdit } from "./pages/sell/edit";
 import { SellCreate } from "./pages/sell/create";
+import PublicForm from "./pages/form";
 
 const myTheme = deepmerge(defaultTheme, {
   palette: {
@@ -70,64 +71,76 @@ const myTheme = deepmerge(defaultTheme, {
 });
 
 export const App = () => (
-  <Admin
-    layout={CustomLayout}
-    theme={myTheme}
-    dataProvider={dataProvider}
-    authProvider={authProvider}
-    menu={CustomMenu}
-  >
-    <Resource
-      name="users"
-      list={UserList}
-      show={UserShow}
-      edit={UserEdit}
-      create={UserCreate}
-    />
-    <Resource
-      name="leads"
-      list={LeadsList}
-      show={LeadsShow}
-      edit={LeadsEdit}
-      create={LeadsCreate}
-    />
-    <Resource
-      name="students"
-      list={StudentList}
-      show={StudentShow}
-      edit={StudentsEdit}
-    />
-    <Resource
-      name="missions"
-      list={MissionList}
-      show={MissionsShow}
-      edit={MissionEdit}
-      create={UserCreate}
-    />
-    <Resource
-      name="feedback"
-      list={FeedbackList}
-      show={FeedBackShow}
-      create={FeedBackCreate}
-      edit={FeedBackEdit}
-    />
-    <Resource
-      name="sale"
-      list={SaleList}
-      show={SaleShow}
-      create={SalesCreate}
-      edit={SalesEdit}
-    />
-    <Resource
-      name="sell"
-      list={SellList}
-      show={SellShow}
-      edit={SellEdit}
-      create={SellCreate}
-    />
-    <CustomRoutes>
-      <Route path="/mesai" element={<EmployeeTable />} />
-      <Route path="/add-working-hours" element={<AddLoginDate />} />
-    </CustomRoutes>
-  </Admin>
+  <BrowserRouter>
+    <Routes>
+      {/* Public form route */}
+      <Route path="/public-form" element={<PublicForm />} />
+      {/* React Admin */}
+      <Route
+        path="/*"
+        element={
+          <Admin
+            layout={CustomLayout}
+            theme={myTheme}
+            dataProvider={dataProvider}
+            authProvider={authProvider}
+            menu={CustomMenu}
+          >
+            <Resource
+              name="users"
+              list={UserList}
+              show={UserShow}
+              edit={UserEdit}
+              create={UserCreate}
+            />
+            <Resource
+              name="leads"
+              list={LeadsList}
+              show={LeadsShow}
+              edit={LeadsEdit}
+              create={LeadsCreate}
+            />
+            <Resource
+              name="students"
+              list={StudentList}
+              show={StudentShow}
+              edit={StudentsEdit}
+            />
+            <Resource
+              name="missions"
+              list={MissionList}
+              show={MissionsShow}
+              edit={MissionEdit}
+              create={UserCreate}
+            />
+            <Resource
+              name="feedback"
+              list={FeedbackList}
+              show={FeedBackShow}
+              create={FeedBackCreate}
+              edit={FeedBackEdit}
+            />
+            <Resource
+              name="sale"
+              list={SaleList}
+              show={SaleShow}
+              create={SalesCreate}
+              edit={SalesEdit}
+            />
+            <Resource
+              name="sell"
+              list={SellList}
+              show={SellShow}
+              edit={SellEdit}
+              create={SellCreate}
+            />
+            <CustomRoutes>
+              <Route path="/mesai" element={<EmployeeTable />} />
+              <Route path="/add-working-hours" element={<AddLoginDate />} />
+            </CustomRoutes>
+          </Admin>
+        }
+      />
+    </Routes>
+  </BrowserRouter>
 );
