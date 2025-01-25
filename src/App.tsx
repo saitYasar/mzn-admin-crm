@@ -35,6 +35,7 @@ import { SellShow } from "./pages/sell/show";
 import { SellEdit } from "./pages/sell/edit";
 import { SellCreate } from "./pages/sell/create";
 import PublicForm from "./pages/form";
+import { MissionCreate } from "./pages/missions/create";
 
 const myTheme = deepmerge(defaultTheme, {
   palette: {
@@ -111,7 +112,7 @@ export const App = () => (
               list={MissionList}
               show={MissionsShow}
               edit={MissionEdit}
-              create={UserCreate}
+              create={MissionCreate}
             />
             <Resource
               name="feedback"
