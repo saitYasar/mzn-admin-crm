@@ -13,6 +13,8 @@ import {
   ReferenceField,
   ReferenceInput,
   BooleanField,
+  EditButton,
+  DeleteButton,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
 import { Role } from "../../lib/enum/enums";
@@ -142,6 +144,8 @@ export const FeedbackList = (props: any) => {
         />
         <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
         <ShowButton />
+        <EditButton />
+        <DeleteButton />
       </Datagrid>
     </List>
   );

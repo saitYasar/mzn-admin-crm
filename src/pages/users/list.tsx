@@ -11,6 +11,8 @@ import {
   SelectInput,
   DateInput,
   ImageField,
+  EditButton,
+  DeleteButton,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
 import { Role } from "../../lib/enum/enums";
@@ -97,6 +99,9 @@ export const UserList = (props: any) => (
         ]}
       />
       {/* <ImageField source="image" label="Fotoğraf" /> */}
+      <ShowButton />
+      <EditButton />
+      <DeleteButton />
       <ShowButton />
     </Datagrid>
   </List>

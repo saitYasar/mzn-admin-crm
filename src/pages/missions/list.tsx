@@ -12,6 +12,8 @@ import {
   ReferenceInput,
   SelectInput,
   DateInput,
+  EditButton,
+  DeleteButton,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
 import { Role } from "../../lib/enum/enums";
@@ -107,6 +109,8 @@ export const MissionList = (props: any) => (
         />
       </ReferenceField>
       <ShowButton />
+      <EditButton />
+      <DeleteButton />
     </Datagrid>
   </List>
 );

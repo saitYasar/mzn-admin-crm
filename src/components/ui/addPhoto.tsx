@@ -66,6 +66,7 @@ const AddPhoto = ({
             },
             body: JSON.stringify({
               ...record,
+              password: null,
               image: data.imageUrl,
             }),
           }
