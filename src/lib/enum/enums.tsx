@@ -46,13 +46,31 @@ export enum Role {
   Admin = 13,
 }
 export enum DropshippingStage {
-  "Yeni Başladık" = 1,
-  "Ürün Araştırması" = 2,
-  "Tedarikçi Seçimi" = 3,
-  "Mağaza Kurulumu" = 4,
-  "Pazarlama ve Reklam" = 5,
-  "Büyütme" = 6,
-  "Diğer" = 7,
+  "Başlamadı" = 0,
+  "Hesap Açılışı ve Payoneer Tanıtımı" = 1,
+  "Hesap Ayarları- Panel Tanıtımı- Buybox Taktiği" = 2,
+  "Hesap Sağlığı 1. ders" = 3,
+  "Hesap Sağlığı 2. ders (appeal yazma)" = 4,
+  "Yazılımı Bağlama ve Yazılım Kullanmayı Öğrenme" = 5,
+  "Ürün Bulma Dersi 1 (Klasik Taktikler)" = 6,
+  "Ürün Bulma Dersi 2 (ileri taktikler)" = 7,
+  "Diğer Yazılımlarla Ürün Bulma ve Kategori Açtırma" = 8,
+  "Genel Kontrol ve Soru Cevap Dersi" = 9,
+  "Sipariş Gönderme Dersi" = 10,
+  "İade Dersi (iade gelmese de yapılır)" = 11,
+  "Beklemede" = 99,
+}
+export enum NextDropshippingStage {
+  "Başlamadı" = 0,
+  "GENEL DURUM DEĞERLENDİRMESİ, AYARLAR VE YOL PLANI" = 1,
+  "DETAYLI HESAP SAĞLIĞI, APPEAL, SUSPEND İNCELEMESİ" = 2,
+  "MANUEL KATEGORİ VE ÜRÜN ARAMA TAKTİKLERİ" = 3,
+  "İLERİ SATIŞ & ÇAPRAZ TARAMA & RAKİP ANALİZİ" = 4,
+  "HELIUM 10 İLE SATAN ÜRÜN, KEYWORD, KATEGORİ ARAŞTIRMASI" = 5,
+  "KEEPA ÜZERİNDEN REKABETÇİ ÜRÜN BULMA TAKTİKLERİ" = 6,
+  "ÜST DÜZEY BİR YAZILIM İLE ÜRÜN VE ALT KATEGORİ BULMA" = 7,
+  "BUSINESS REPORTS & ENVANTER YÖNETİMİ, NE SATAR?" = 8,
+  "GENEL KONTROL & SORU CEVAP" = 9,
   "Beklemede" = 99,
 }
 
@@ -89,13 +107,18 @@ export enum SuspendStage {
 }
 
 export const DropshippingStages = [
-  { id: "1", name: "Yeni Başladık" },
-  { id: "2", name: "Ürün Araştırması" },
-  { id: "3", name: "Tedarikçi Seçimi" },
-  { id: "4", name: "Mağaza Kurulumu" },
-  { id: "5", name: "Pazarlama ve Reklam" },
-  { id: "6", name: "Büyütme" },
-  { id: "7", name: "Diğer" },
+  { id: "0", name: "Başlamadı" },
+  { id: "1", name: "Hesap Açılışı ve Payoneer Tanıtımı" },
+  { id: "2", name: "Hesap Ayarları- Panel Tanıtımı- Buybox Taktiği" },
+  { id: "3", name: "Hesap Sağlığı 1. ders" },
+  { id: "4", name: "Hesap Sağlığı 2. ders (appeal yazma)" },
+  { id: "5", name: "Yazılımı Bağlama ve Yazılım Kullanmayı Öğrenme" },
+  { id: "6", name: "Ürün Bulma Dersi 1 (Klasik Taktikler)" },
+  { id: "7", name: "Ürün Bulma Dersi 2 (ileri taktikler)" },
+  { id: "8", name: "Diğer Yazılımlarla Ürün Bulma ve Kategori Açtırma" },
+  { id: "9", name: "Genel Kontrol ve Soru Cevap Dersi" },
+  { id: "10", name: "Sipariş Gönderme Dersi" },
+  { id: "11", name: "İade Dersi (iade gelmese de yapılır)" },
   { id: "99", name: "Beklemede" },
 ];
 
