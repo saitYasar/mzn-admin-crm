@@ -50,20 +50,25 @@ const EmployeeTables = ({ data }: any) => {
               </td>
               <td style={{ border: "1px solid #ccc", padding: "8px" }}>
                 {records.map((record: any) => (
-                  <span
-                    key={record.id}
-                    style={{
-                      display: "inline-block",
-                      padding: "4px 8px",
-                      margin: "2px",
-                      color: "#fff",
-                      borderRadius: "4px",
-                      backgroundColor: record.isEntry ? "#007BFF" : "#DC3545",
-                    }}
-                  >
-                    {dayjs(record.createDate).format("HH:mm")}{" "}
-                    {record.isEntry ? "Giriş" : "Çıkış"}
-                  </span>
+                  <>
+                    <span
+                      key={record.id}
+                      style={{
+                        display: "inline-block",
+                        padding: "4px 8px",
+                        margin: "2px",
+                        color: "#fff",
+                        borderRadius: "4px",
+                        backgroundColor: record.isEntry ? "#007BFF" : "#DC3545",
+                      }}
+                    >
+                      {dayjs(record.createDate).format("HH:mm")}{" "}
+                      {record.isEntry ? "Giriş" : "Çıkış"}
+                    </span>
+                    <br />
+                    not:<span>{record.note}</span>
+                    <br />
+                  </>
                 ))}
               </td>
             </tr>
@@ -102,6 +107,7 @@ const EmployeeTable = (record: any) => {
         },
       });
       const data = await response.json();
+
       setEmployeeData(data.data || []);
     };
 

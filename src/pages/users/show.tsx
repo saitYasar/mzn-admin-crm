@@ -21,12 +21,12 @@ export const UserShow = (props: any) => {
         }
       >
         <TabbedShowLayout.Tab label="Genel">
-          <TextField source="id" />
-          <TextField source="name" />
-          <TextField source="username" />
-          <TextField source="email" />
-          <TextField source="phone" />
-          <ImageField source="image" />
+          <TextField source="id" label={"id"} />
+          <TextField source="name" label={"İsim"} />
+          <TextField source="username" label={"Soy isim"} />
+          <TextField source="email" label={"Mail"} />
+          <TextField source="phone" label={"Telefon"} />
+          <ImageField source="image" label={"Resim"} />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Çalışan Hareketleri" path="photo">
           <EmployeeTable record={record} />

@@ -96,7 +96,7 @@ export const UserList = (props: any) => (
           { id: 13, name: "Admin" },
         ]}
       />
-      <ImageField source="image" label="Fotoğraf" />
+      {/* <ImageField source="image" label="Fotoğraf" /> */}
       <ShowButton />
     </Datagrid>
   </List>
