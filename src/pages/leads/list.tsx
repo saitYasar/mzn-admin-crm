@@ -14,7 +14,7 @@ import {
   DateInput,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
-import { Role } from "../../lib/enum/enums";
+import { Role, Type } from "../../lib/enum/enums";
 
 const PostFilter = (props: any) => (
   <Filter {...props}>
@@ -40,19 +40,35 @@ const PostFilter = (props: any) => (
     <DateInput label="Oluşturulma Tarihi Son" source="day__lte" alwaysOn />
   </Filter>
 );
+export enum Status {
+  Yeni = "0",
+  Iletisimde = "2",
+  Takipte = "3",
+  Ilgili = "4",
+  Pazarlikta = "5",
+  SatisTamamlandi = "6",
+  Kaybedildi = "7",
+  Niteliksiz = "8",
+}
 
 const exporter = (posts: any) => {
   const postsForExport = posts.map((post: any) => {
     const { ...postForExport } = post; // omit backlinks and author
-    postForExport.isim = post.firstName; // add a field
-    postForExport.soyisim = post.username; // add a field
-    postForExport.email = post.email; // add a field
-    postForExport.telefon = post.phone; // add a field
-    postForExport.rol = Role[post.role]; // add a field
-    delete postForExport.firstName; // remove a field
-    delete postForExport.role;
-    delete postForExport.username; // remove a field
-    delete postForExport.phone; // remove a field
+    postForExport.isim = post.firstName;
+    postForExport.soyisim = post.lastName;
+    postForExport.mail = post.email;
+    postForExport.tel_no = post.phone;
+    postForExport.status = Status[post.status as keyof typeof Status];
+    postForExport.tip = Type[post.type];
+    postForExport.fiyat = post.price;
+
+    delete postForExport.firstName;
+    delete postForExport.lastName;
+    delete postForExport.email;
+    delete postForExport.phone;
+    delete postForExport.status;
+    delete postForExport.type;
+    delete postForExport.price;
 
     return postForExport;
   });
@@ -61,18 +77,6 @@ const exporter = (posts: any) => {
   });
 };
 
-// {
-//     "id": 3,
-//     "firstName": "Batuhan",
-//     "lastName": "Diler",
-//     "email": "diler@gmail.com",
-//     "phone": "0531313131",
-//     "status": "0",
-//     "call": "1",
-//     "images": "example",
-//     "reference": 1,
-//     "createDate": "2025-01-12T00:00:00"
-// }
 export const LeadsList = (props: any) => (
   <List {...props} filters={<PostFilter />} exporter={exporter}>
     <Datagrid>

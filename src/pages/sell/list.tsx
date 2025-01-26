@@ -60,15 +60,15 @@ const PostFilter = (props: any) => (
 const exporter = (posts: any) => {
   const postsForExport = posts.map((post: any) => {
     const { ...postForExport } = post; // omit backlinks and author
-    postForExport.isim = post.firstName; // add a field
-    postForExport.soyisim = post.username; // add a field
-    postForExport.email = post.email; // add a field
-    postForExport.telefon = post.phone; // add a field
-    postForExport.rol = Role[post.role]; // add a field
-    delete postForExport.firstName; // remove a field
+    postForExport.isim = post.firstName;
+    postForExport.soyisim = post.username;
+    postForExport.email = post.email;
+    postForExport.telefon = post.phone;
+    postForExport.rol = Role[post.role];
+    delete postForExport.firstName;
     delete postForExport.role;
-    delete postForExport.username; // remove a field
-    delete postForExport.phone; // remove a field
+    delete postForExport.username;
+    delete postForExport.phone;
 
     return postForExport;
   });

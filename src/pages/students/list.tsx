@@ -76,15 +76,15 @@ const getStages = (condition: string) => {
 const exporter = (posts: any) => {
   const postsForExport = posts.map((post: any) => {
     const { ...postForExport } = post; // omit backlinks and author
-    postForExport.isim = post.firstName; // add a field
-    postForExport.soyisim = post.lastName; // add a field
-    postForExport.email = post.email; // add a field
-    postForExport.telefon = post.phone; // add a field
-    postForExport.durum = MusteriDurumu[post.status]; // add a field
-    delete postForExport.firstName; // remove a field
+    postForExport.isim = post.firstName;
+    postForExport.soyisim = post.lastName;
+    postForExport.email = post.email;
+    postForExport.telefon = post.phone;
+    postForExport.durum = MusteriDurumu[post.status];
+    delete postForExport.firstName;
     delete postForExport.stage;
-    delete postForExport.lastName; // remove a field
-    delete postForExport.phone; // remove a field
+    delete postForExport.lastName;
+    delete postForExport.phone;
     delete postForExport.images;
     return postForExport;
   });

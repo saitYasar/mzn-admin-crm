@@ -17,7 +17,7 @@ import {
   DeleteButton,
 } from "react-admin";
 import jsonExport from "jsonexport/dist";
-import { Role } from "../../lib/enum/enums";
+import { Role, Type } from "../../lib/enum/enums";
 
 const PostFilter = (props: any) => (
   <Filter {...props}>
@@ -60,15 +60,30 @@ const PostFilter = (props: any) => (
 const exporter = (posts: any) => {
   const postsForExport = posts.map((post: any) => {
     const { ...postForExport } = post; // omit backlinks and author
-    postForExport.isim = post.firstName; // add a field
-    postForExport.soyisim = post.username; // add a field
-    postForExport.email = post.email; // add a field
-    postForExport.telefon = post.phone; // add a field
-    postForExport.rol = Role[post.role]; // add a field
-    delete postForExport.firstName; // remove a field
+    postForExport.mail = post.email;
+    postForExport.musteri_ismi = post.customerName;
+    postForExport.musteri_soyismi = post.customerSurname;
+    postForExport.note = post.note;
+    postForExport.tip = Type[post.type];
+    postForExport.olusturma_tarihi = post.createDate;
+    postForExport.state = post.state;
+    postForExport.didWriteOnComplaint = post.didWriteOnComplaint;
+    postForExport.hoca_not = post.teacherNote;
+    postForExport.telefon = post.phone;
+    postForExport.rol = Role[post.role];
+    delete postForExport.firstName;
     delete postForExport.role;
-    delete postForExport.username; // remove a field
-    delete postForExport.phone; // remove a field
+    delete postForExport.email;
+    delete postForExport.customerName;
+    delete postForExport.customerSurname;
+    delete postForExport.note;
+    delete postForExport.type;
+    delete postForExport.createDate;
+    delete postForExport.state;
+    delete postForExport.didWriteOnComplaint;
+    delete postForExport.teacherNote;
+    delete postForExport.username;
+    delete postForExport.phone;
 
     return postForExport;
   });
