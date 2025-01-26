@@ -48,8 +48,15 @@ export const SellShow = (props: any) => {
             source="sellerId"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <BooleanField source="isContainGuarantee" label="Garantili mi" />
           <BooleanField source="isCompleted" label="Satıldı mı" />

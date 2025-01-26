@@ -63,3 +63,6 @@ button:hover {
 button:active {
   background-color: #00408f;
 }
+.RaReferenceField-link {
+  color: #007bff !important;
+}

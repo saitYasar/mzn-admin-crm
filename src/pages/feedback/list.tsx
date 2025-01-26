@@ -101,8 +101,15 @@ export const FeedbackList = (props: any) => {
         <DateField source="createDate" label="Oluşturulma Tarihi" />
 
         <ReferenceField label="HakKında" source="targetUser" reference="users">
-          <TextField source="firstName" /> <span> </span>
-          <TextField source="lastName" />
+          <TextField
+            style={{ textDecoration: "none", color: "inherit" }}
+            source="firstName"
+          />{" "}
+          <span> </span>
+          <TextField
+            style={{ textDecoration: "none", color: "inherit" }}
+            source="lastName"
+          />
         </ReferenceField>
         <SelectField
           source="state"
@@ -119,8 +126,15 @@ export const FeedbackList = (props: any) => {
           source="userId"
           reference="users"
         >
-          <TextField source="firstName" /> <span> </span>
-          <TextField source="lastName" />
+          <TextField
+            source="firstName"
+            style={{ textDecoration: "none", color: "inherit" }}
+          />{" "}
+          <span> </span>
+          <TextField
+            source="lastName"
+            style={{ textDecoration: "none", color: "inherit" }}
+          />
         </ReferenceField>
         <BooleanField
           source="didWriteOnComplaint"

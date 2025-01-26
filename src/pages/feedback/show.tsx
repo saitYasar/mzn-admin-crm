@@ -40,16 +40,30 @@ export const FeedBackShow = (props: any) => {
             source="targetUser"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <ReferenceField
             label="Bildirimi Alan"
             source="userId"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <SelectField
             source="state"

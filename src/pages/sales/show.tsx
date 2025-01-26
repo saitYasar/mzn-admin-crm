@@ -39,8 +39,15 @@ export const SaleShow = (props: any) => {
             source="createBy"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <DateField source="createDate" />
           <TextField source="note" label="Not" />
@@ -50,8 +57,15 @@ export const SaleShow = (props: any) => {
             source="reference"
             reference="leads"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <ImageField source="image" />
         </TabbedShowLayout.Tab>

@@ -86,3 +86,6 @@ span.bg-red-500 {
 .datepicker-container input:focus {
   border-color: #007bff;
 }
+.RaReferenceField-link {
+  color: #007bff !important;
+}

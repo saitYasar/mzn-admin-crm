@@ -77,16 +77,30 @@ export const StudentShow = (props: any) => {
             source="leadUser"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <ReferenceField
             label="Onaylayan Danışman"
             source="confirmUser"
             reference="users"
           >
-            <TextField source="firstName" /> <span> </span>
-            <TextField source="lastName" />
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="firstName"
+            />{" "}
+            <span> </span>
+            <TextField
+              style={{ textDecoration: "none", color: "inherit" }}
+              source="lastName"
+            />
           </ReferenceField>
           <FunctionField
             label="Yüzde Tamamlanma"

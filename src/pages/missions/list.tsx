@@ -85,12 +85,26 @@ export const MissionList = (props: any) => (
         source="baseUser"
         reference="users"
       >
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
+        <TextField
+          style={{ textDecoration: "none", color: "inherit" }}
+          source="firstName"
+        />{" "}
+        <span> </span>
+        <TextField
+          style={{ textDecoration: "none", color: "inherit" }}
+          source="lastName"
+        />
       </ReferenceField>
       <ReferenceField label="Atanan Kişi" source="targetUser" reference="users">
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
+        <TextField
+          source="firstName"
+          style={{ textDecoration: "none", color: "inherit" }}
+        />{" "}
+        <span> </span>
+        <TextField
+          style={{ textDecoration: "none", color: "inherit" }}
+          source="lastName"
+        />
       </ReferenceField>
       <ShowButton />
     </Datagrid>

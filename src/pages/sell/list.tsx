@@ -97,8 +97,15 @@ export const SellList = (props: any) => (
         ]}
       />
       <ReferenceField label="Satan Kişi" source="sellerId" reference="users">
-        <TextField source="firstName" /> <span> </span>
-        <TextField source="lastName" />
+        <TextField
+          style={{ textDecoration: "none", color: "inherit" }}
+          source="firstName"
+        />{" "}
+        <span> </span>
+        <TextField
+          style={{ textDecoration: "none", color: "inherit" }}
+          source="lastName"
+        />
       </ReferenceField>
       <BooleanField source="isContainGuarantee" label="Garantili mi" />
       <TextField source="buyLocation" label="Satıldığı Lokasyon" />
