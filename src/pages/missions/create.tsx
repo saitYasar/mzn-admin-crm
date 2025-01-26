@@ -46,15 +46,6 @@ export const MissionCreate = (props: any) => {
           ]}
         />
         <TextInput source="note" label="Not" />
-        {/* <ReferenceInput
-          label="Oluşturan Kişi"
-          source="baseUser"
-          reference="users"
-        >
-          <SelectInput
-            optionText={(record) => `${record.firstName} ${record.lastName}`}
-          />
-        </ReferenceInput> */}
         <ReferenceInput
           label="Atanan Kişi"
           source="targetUser"
