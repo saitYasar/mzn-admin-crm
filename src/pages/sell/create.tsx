@@ -22,6 +22,7 @@ export const SellCreate = (props: any) => {
     bonusAmount: formData.bonusAmount,
     remainigAmount: formData.remainigAmount,
     totalAmount: formData.totalAmount,
+    date: new Date(),
   });
   return (
     <Create transform={transform} {...props}>

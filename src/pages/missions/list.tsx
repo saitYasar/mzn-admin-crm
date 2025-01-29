@@ -47,27 +47,64 @@ const PostFilter = (props: any) => (
   </Filter>
 );
 
-const exporter = (posts: any) => {
+const exporter = async (posts: any, dataProvider: any) => {
+  // Tüm baseUser ve targetUser ID'lerini topla
+  const baseUserIds = posts.map((post: any) => post.baseUser).filter(Boolean);
+  const targetUserIds = posts
+    .map((post: any) => post.targetUser)
+    .filter(Boolean);
+
+  // dataProvider ile kullanıcı verilerini al
+  const [baseUsers, targetUsers] = await Promise.all([
+    dataProvider.getMany("users", { ids: baseUserIds }),
+    dataProvider.getMany("users", { ids: targetUserIds }),
+  ]);
+
+  const baseUserMap = Object.fromEntries(
+    baseUsers.data.map((user: any) => [
+      user.id,
+      `${user.firstName} ${user.lastName}`,
+    ])
+  );
+  const targetUserMap = Object.fromEntries(
+    targetUsers.data.map((user: any) => [
+      user.id,
+      `${user.firstName} ${user.lastName}`,
+    ])
+  );
+
   const postsForExport = posts.map((post: any) => {
-    const { ...postForExport } = post; // omit backlinks and author
-    postForExport.isim = post.firstName;
-    postForExport.soyisim = post.username;
-    postForExport.email = post.email;
-    postForExport.telefon = post.phone;
-    postForExport.rol = Role[post.role];
-    delete postForExport.firstName;
-    delete postForExport.role;
-    delete postForExport.username;
-    delete postForExport.phone;
+    const { ...postForExport } = post;
+
+    // ID yerine kullanıcı adlarını ekle
+    postForExport["Oluşturan Kişi"] =
+      baseUserMap[post.baseUser] || "Bilinmiyor";
+    postForExport["Atanan Kişi"] =
+      targetUserMap[post.targetUser] || "Bilinmiyor";
+    postForExport["Not"] = post.note;
+    postForExport["Hedef Zaman"] = post.targetDate;
+    postForExport["Oluşturulma Zamanı"] = post.createDate;
+
+    delete postForExport.note;
+    delete postForExport.targetDate;
+    delete postForExport.createDate;
+    delete postForExport.baseUser;
+    delete postForExport.targetUser;
 
     return postForExport;
   });
+
   jsonExport(postsForExport, {}, (err, csv) => {
-    downloadCSV(csv, "users");
+    downloadCSV(csv, "missions");
   });
 };
+
 export const MissionList = (props: any) => (
-  <List {...props} filters={<PostFilter />} exporter={exporter}>
+  <List
+    {...props}
+    filters={<PostFilter />}
+    exporter={(posts) => exporter(posts, props.dataProvider)}
+  >
     <Datagrid>
       <TextField source="id" label="İd" />
       <DateField source="createDate" label="Oluşturulma Tarihi" />
@@ -108,6 +145,7 @@ export const MissionList = (props: any) => (
           source="lastName"
         />
       </ReferenceField>
+
       <ShowButton />
       <EditButton />
       <DeleteButton />
