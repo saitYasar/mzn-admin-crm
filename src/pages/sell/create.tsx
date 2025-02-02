@@ -45,7 +45,17 @@ export const SellCreate = (props: any) => {
           <SelectInput optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
         <BooleanInput source="isContainGuarantee" label="Garantili mi" />
-        <TextInput source="BuyLocation" label="Satıldığı Lokasyon" />
+        {/* <TextInput source="BuyLocation" label="Satıldığı Lokasyon" /> */}
+        <SelectInput
+          source="BuyLocation"
+          label="Satıldığı Lokasyon"
+          choices={[
+            { id: "stripe", name: "Stripe" },
+            { id: "PAYTR", name: "PAYTR" },
+            { id: "ELDEN", name: "Elden" },
+            { id: "IBAN", name: "IBAN" },
+          ]}
+        />
         <NumberInput source="bonusAmount" label="Alınan Tutar" />
         <NumberInput source="remainigAmount" label="Kalan Tutar" />
         <NumberInput source="totalAmount" label="Toplam Tutar" />
