@@ -66,7 +66,7 @@ export const SellShow = (props: any) => {
           <NumberField source="totalAmount" label="Toplam Tutar" />
         </TabbedShowLayout.Tab>
         <TabbedShowLayout.Tab label="Satış Gerçekleştir" path="photos">
-          {!record?.isCompleted && <VerificateSell data={record} />}
+          {<VerificateSell data={record} />}
         </TabbedShowLayout.Tab>
       </TabbedShowLayout>
     </Show>
