@@ -13,6 +13,7 @@ export const MissionEdit = (props: any) => {
       <SimpleForm>
         <TextInput source="id" label="İd" />
         <DateInput source="targetDate" label="Atanma Tarihi" />
+        <DateInput source="endDate" label="Bitiş Tarihi" />
         <SelectInput
           source="status"
           label="Durum"

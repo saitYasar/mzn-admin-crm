@@ -108,6 +108,7 @@ export const MissionList = (props: any) => (
     <Datagrid>
       <TextField source="id" label="İd" />
       <DateField source="createDate" label="Oluşturulma Tarihi" />
+      <DateField source="endDate" label="Bitiş Tarihi" />
       <DateField source="targetDate" label="Atanma Tarihi" />
       <SelectField
         source="status"

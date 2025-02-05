@@ -36,6 +36,8 @@ export const MissionCreate = (props: any) => {
     <Create transform={transform} {...props}>
       <SimpleForm>
         <DateInput source="targetDate" label="Atanma Tarihi" />
+        <DateInput source="endDate" label="Bitiş Tarihi" />
+
         <SelectInput
           source="status"
           label="Durum"
