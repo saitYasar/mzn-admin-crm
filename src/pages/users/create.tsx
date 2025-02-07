@@ -34,7 +34,7 @@ export const UserCreate = (props: any) => {
         <TextInput source="username" label="Kullanıcı Adı" />
         <TextInput source="email" label="Email" />
         <TextInput source="phone" label="Telefon" />
-        <TextInput source="password" label="Telefon" />
+        <TextInput source="password" label="Şifre" />
         <SelectInput source="role" label={"Rol"} choices={SelectOptions} />
       </SimpleForm>
     </Create>
