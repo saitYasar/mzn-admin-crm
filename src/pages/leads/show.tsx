@@ -123,8 +123,36 @@ export const LeadsShow = (props: any) => {
             onChange={(e) =>
               e.target.files && handleFileUpload(e.target.files[0])
             }
-            className="p-2 border rounded"
+            style={{
+              padding: "0.5rem",
+              border: "1px solid #d1d5db",
+              borderRadius: "0.375rem",
+              cursor: "pointer",
+              backgroundColor: "#ffffff",
+              color: "#4b5563",
+            }}
           />
+          <button
+            onClick={() => {
+              const link = document.createElement("a");
+              link.href = "/public/ornek-dosya.xlsx";
+              link.download = "ornek-dosya.xlsx";
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+          >
+            Örnek Excel Formatı indirmek İçin Tıkla
+          </button>
+          <ol>
+            <li>Örnek dosyayı indir</li>
+            <li>Eklenmesini istediğin başvuruları örnekteki formata koy.</li>
+            <li>
+              Geri yükle. Eğer eklenmeyen olursa sana aşağıda yazacak. Onları
+              tekrar dene. <br /> Hata olduğunu düşünürsen yazılımcı ile
+              iletişime geç. (5465987822)
+            </li>
+          </ol>
           {uploadError.length > 0 && (
             <div>
               <h3>Eklenemeyen Kayıtlar:</h3>

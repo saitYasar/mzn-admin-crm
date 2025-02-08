@@ -15,10 +15,10 @@ export const LeadsCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <TextInput source="firstName" placeholder="İsim" />
-        <TextInput source="lastName" placeholder="Soyisim" />
-        <TextInput source="email" placeholder="Email" />
-        <TextInput source="phone" placeholder="Telefon" />
+        <TextInput source="firstName" label="İsim" />
+        <TextInput source="lastName" label="Soyisim" />
+        <TextInput source="email" label="Email" />
+        <TextInput source="phone" label="Telefon" />
         <SelectInput
           source="status"
           label="Müşteri Durumu"
@@ -45,9 +45,9 @@ export const LeadsCreate = (props: any) => {
             { id: 4, name: "Suspend" },
           ]}
         />
-        <TextInput source="price" placeholder="Teklif" />
-        {/* <TextInput source="call" placeholder="Arama" />
-        <TextInput source="images" placeholder="Resimler" /> */}
+        <TextInput source="price" label="Teklif" />
+        {/* <TextInput source="call" label="Arama" />
+        <TextInput source="images" label="Resimler" /> */}
       </SimpleForm>
     </Create>
   );

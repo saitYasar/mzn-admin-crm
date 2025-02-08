@@ -157,7 +157,11 @@ export const FeedbackList = (props: any) => {
           source="didWriteOnComplaint"
           label={"Şikayet Vara yazıldı mı"}
         />
-        <TextField source="teacherNote" placeholder="Öğretmen Açıklama" />
+        <TextField
+          source="teacherNote"
+          placeholder="Öğretmen Açıklama"
+          label={"Öğretmen Açıklama"}
+        />
         <ShowButton />
         <EditButton />
         <DeleteButton />

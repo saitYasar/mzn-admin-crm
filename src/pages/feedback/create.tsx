@@ -34,15 +34,15 @@ export const FeedBackCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <TextInput source="note" placeholder="Note" />
+        <TextInput source="note" label="Note" />
         <SelectInput
           source="type"
           label={"Bildirim Tipi"}
           choices={SelectOptions}
         />
-        <TextInput source="customerName" placeholder="İsim" />
-        <TextInput source="customerSurname" placeholder="Soy isim" />
-        <TextInput source="CustomerPhone" placeholder="Müşteri Tel" />
+        <TextInput source="customerName" label="İsim" />
+        <TextInput source="customerSurname" label="Soy isim" />
+        <TextInput source="CustomerPhone" label="Müşteri Tel" />
         <SelectInput
           source="state"
           label={"Şikayet Durumu"}
@@ -55,7 +55,7 @@ export const FeedBackCreate = (props: any) => {
           source="didWriteOnComplaint"
           label={"Şikayet Vara yazıldı mı"}
         />
-        <TextInput source="teacherNote" placeholder="Öğretmen Açıklama" />
+        <TextInput source="teacherNote" label="Öğretmen Açıklama" />
       </SimpleForm>
     </Create>
   );

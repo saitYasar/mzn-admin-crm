@@ -88,7 +88,7 @@ const AddPhoto = ({
 
   return (
     <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-      <h2>Upload a Photo</h2>
+      <h2>Fotoğraf Ekle</h2>
       <input
         type="file"
         accept="image/*"
@@ -105,11 +105,11 @@ const AddPhoto = ({
         onClick={handleUpload}
         style={{ padding: "10px 20px", marginTop: "10px" }}
       >
-        Upload
+        Ekle
       </button>
       {uploadedUrl && (
         <div>
-          <h3>Uploaded URL:</h3>
+          <h3>Ekleme Linki:</h3>
           <a href={uploadedUrl} target="_blank" rel="noopener noreferrer">
             {uploadedUrl}
           </a>

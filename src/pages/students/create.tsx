@@ -21,10 +21,10 @@ export const StudentCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <TextInput source="firstName" placeholder="İsim" />
-        <TextInput source="lastName" placeholder="Soyisim" />
-        <TextInput source="email" placeholder="Email" />
-        <TextInput source="phone" placeholder="Telefon" />
+        <TextInput source="firstName" label="İsim" />
+        <TextInput source="lastName" label="Soyisim" />
+        <TextInput source="email" label="Email" />
+        <TextInput source="phone" label="Telefon" />
         <DateInput source="serviceEndDate" label="Hizmet Bitiş Tarihi" />
         <SelectInput
           source="status"
@@ -52,7 +52,7 @@ export const StudentCreate = (props: any) => {
             { id: 4, name: "Suspend" },
           ]}
         />
-        <TextInput source="call" placeholder="Arama" />
+        <TextInput source="call" label="Arama" />
       </SimpleForm>
     </Create>
   );

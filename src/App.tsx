@@ -76,6 +76,7 @@ export const App = () => (
     <Routes>
       {/* Public form route */}
       <Route path="/public-form" element={<PublicForm />} />
+
       {/* React Admin */}
       <Route
         path="/*"

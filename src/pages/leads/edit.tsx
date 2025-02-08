@@ -12,10 +12,10 @@ export const LeadsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" placeholder="İsim" />
-        <TextInput source="lastName" placeholder="Soyisim" />
-        <TextInput source="email" placeholder="Email" />
-        <TextInput source="phone" placeholder="Telefon" />
+        <TextInput source="firstName" label="İsim" />
+        <TextInput source="lastName" label="Soyisim" />
+        <TextInput source="email" label="Email" />
+        <TextInput source="phone" label="Telefon" />
 
         <SelectInput
           source="type"
@@ -45,9 +45,9 @@ export const LeadsEdit = (props: any) => {
           />
         )}
 
-        <TextInput source="call" placeholder="Arama" />
-        <TextInput source="price" placeholder="Teklif" />
-        <TextInput source="images" placeholder="Resimler" />
+        <TextInput source="call" label="Arama" />
+        <TextInput source="price" label="Teklif" />
+        <TextInput source="images" label="Resimler" />
       </SimpleForm>
     </Edit>
   );

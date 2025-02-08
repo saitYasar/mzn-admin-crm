@@ -32,10 +32,10 @@ export const StudentsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" placeholder="İsim" />
-        <TextInput source="lastName" placeholder="Soyisim" />
-        <TextInput source="email" placeholder="Email" />
-        <TextInput source="phone" placeholder="Telefon" />
+        <TextInput source="firstName" label="İsim" />
+        <TextInput source="lastName" label="Soyisim" />
+        <TextInput source="email" label="Email" />
+        <TextInput source="phone" label="Telefon" />
         <DateInput source="serviceEndDate" label="Hizmet Bitiş Tarihi" />
         <SelectInput
           source="stage"
@@ -54,7 +54,7 @@ export const StudentsEdit = (props: any) => {
             { id: 4, name: "Suspend" },
           ]}
         />
-        {/* <TextInput source="image" placeholder="Resimler" /> */}
+        {/* <TextInput source="image" label="Resimler" /> */}
         <ReferenceInput
           source="leadUser"
           reference="users"
