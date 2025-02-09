@@ -15,10 +15,11 @@ export const SellEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soy isim" />
-        <TextInput source="phone" label="phone" />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soy isim" />
+        <TextInput fullWidth source="phone" label="phone" />
         <SelectInput
+          fullWidth
           source="serviceType"
           label="Hizmet Tipi"
           choices={[
@@ -29,16 +30,25 @@ export const SellEdit = (props: any) => {
             { id: "4", name: "Suspend" },
           ]}
         />
-        <ReferenceInput label="Satan Kişi" source="sellerId" reference="users">
-          <SelectInput optionText="firstName" label="Satan Kişi" />
+        <ReferenceInput
+          fullWidth
+          label="Satan Kişi"
+          source="sellerId"
+          reference="users"
+        >
+          <SelectInput fullWidth optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
-        <BooleanInput source="isContainGuarantee" label="Garantili mi" />
-        <BooleanInput source="isCompleted" label="Satıldı mı" />
+        <BooleanInput
+          fullWidth
+          source="isContainGuarantee"
+          label="Garantili mi"
+        />
+        <BooleanInput fullWidth source="isCompleted" label="Satıldı mı" />
 
-        <TextField source="buyLocation" label="Satıldığı Lokasyon" />
-        <NumberInput source="bonusAmount" label="Alınan Tutar" />
-        <NumberInput source="remainigAmount" label="Kalan Tutar" />
-        <NumberInput source="totalAmount" label="Toplam Tutar" />
+        <TextField fullWidth source="buyLocation" label="Satıldığı Lokasyon" />
+        <NumberInput fullWidth source="bonusAmount" label="Alınan Tutar" />
+        <NumberInput fullWidth source="remainigAmount" label="Kalan Tutar" />
+        <NumberInput fullWidth source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
     </Edit>
   );

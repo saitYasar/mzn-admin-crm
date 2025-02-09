@@ -27,10 +27,11 @@ export const SellCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soy isim" />
-        <TextInput source="phone" label="phone" />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soy isim" />
+        <TextInput fullWidth source="phone" label="phone" />
         <SelectInput
+          fullWidth
           source="serviceType"
           label="Hizmet Tipi"
           choices={[
@@ -41,12 +42,22 @@ export const SellCreate = (props: any) => {
             { id: "4", name: "Suspend" },
           ]}
         />
-        <ReferenceInput label="Satan Kişi" source="sellerId" reference="users">
-          <SelectInput optionText="firstName" label="Satan Kişi" />
+        <ReferenceInput
+          fullWidth
+          label="Satan Kişi"
+          source="sellerId"
+          reference="users"
+        >
+          <SelectInput fullWidth optionText="firstName" label="Satan Kişi" />
         </ReferenceInput>
-        <BooleanInput source="isContainGuarantee" label="Garantili mi" />
+        <BooleanInput
+          fullWidth
+          source="isContainGuarantee"
+          label="Garantili mi"
+        />
         {/* <TextInput source="BuyLocation" label="Satıldığı Lokasyon" /> */}
         <SelectInput
+          fullWidth
           source="BuyLocation"
           label="Satıldığı Lokasyon"
           choices={[
@@ -56,9 +67,9 @@ export const SellCreate = (props: any) => {
             { id: "IBAN", name: "IBAN" },
           ]}
         />
-        <NumberInput source="bonusAmount" label="Alınan Tutar" />
-        <NumberInput source="remainigAmount" label="Kalan Tutar" />
-        <NumberInput source="totalAmount" label="Toplam Tutar" />
+        <NumberInput fullWidth source="bonusAmount" label="Alınan Tutar" />
+        <NumberInput fullWidth source="remainigAmount" label="Kalan Tutar" />
+        <NumberInput fullWidth source="totalAmount" label="Toplam Tutar" />
       </SimpleForm>
     </Create>
   );

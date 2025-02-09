@@ -32,18 +32,24 @@ export const StudentsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soyisim" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone" label="Telefon" />
-        <DateInput source="serviceEndDate" label="Hizmet Bitiş Tarihi" />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soyisim" />
+        <TextInput fullWidth source="email" label="Email" />
+        <TextInput fullWidth source="phone" label="Telefon" />
+        <DateInput
+          fullWidth
+          source="serviceEndDate"
+          label="Hizmet Bitiş Tarihi"
+        />
         <SelectInput
+          fullWidth
           source="stage"
           label="Müşteri Durumu"
           choices={getStages("dropshipping")}
         />
         <SelectInput
           source="type"
+          fullWidth
           label="Müşteri Tipi"
           disabled
           choices={[
@@ -56,18 +62,28 @@ export const StudentsEdit = (props: any) => {
         />
         {/* <TextInput source="image" label="Resimler" /> */}
         <ReferenceInput
+          fullWidth
           source="leadUser"
           reference="users"
           label="Atanan Danışman"
         >
-          <SelectInput optionText="firstName" label={"Atanan Danışman"} />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label={"Atanan Danışman"}
+          />
         </ReferenceInput>
         <ReferenceInput
+          fullWidth
           source="confirmUser"
           reference="users"
           label="Onaylayan Danışman"
         >
-          <SelectInput optionText="firstName" label="Onaylayan Danışman" />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label="Onaylayan Danışman"
+          />
         </ReferenceInput>
       </SimpleForm>
     </Edit>

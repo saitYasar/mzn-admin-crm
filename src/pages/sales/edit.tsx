@@ -14,9 +14,10 @@ export const SalesEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="image" />
+        <TextInput source="image" fullWidth />
         <SelectInput
           source="type"
+          fullWidth
           choices={[
             { id: 0, name: "Tanımlanmadı" },
             { id: 1, name: "Satış" },
@@ -26,19 +27,29 @@ export const SalesEdit = (props: any) => {
         />
         <ReferenceInput
           label="Oluşturan Kişi"
+          fullWidth
           source="createBy"
           reference="users"
         >
-          <SelectInput optionText="firstName" label="Oluşturan  Kişi" />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label="Oluşturan  Kişi"
+          />
         </ReferenceInput>
-        <TextInput source="note" label={"Not"} />
-        <NumberInput source="price" label={"Tutar"} />
+        <TextInput fullWidth source="note" label={"Not"} />
+        <NumberInput fullWidth source="price" label={"Tutar"} />
         <ReferenceInput
+          fullWidth
           label="Oluşturan Kişi"
           source="reference"
           reference="leads"
         >
-          <SelectInput optionText="firstName" label="Oluşturulan leads varsa" />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label="Oluşturulan leads varsa"
+          />
         </ReferenceInput>
       </SimpleForm>
     </Edit>

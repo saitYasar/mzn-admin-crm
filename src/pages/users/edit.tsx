@@ -19,13 +19,18 @@ export const UserEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soyisim" />
-        <TextInput source="username" label="Kullanıcı Adı" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone" label="Telefon" />
-        <TextInput source="password" label="Telefon" />
-        <SelectInput source="role" label={"Rol"} choices={SelectOptions} />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soyisim" />
+        <TextInput fullWidth source="username" label="Kullanıcı Adı" />
+        <TextInput fullWidth source="email" label="Email" />
+        <TextInput fullWidth source="phone" label="Telefon" />
+        <TextInput fullWidth source="password" label="Telefon" />
+        <SelectInput
+          fullWidth
+          source="role"
+          label={"Rol"}
+          choices={SelectOptions}
+        />
       </SimpleForm>
     </Edit>
   );

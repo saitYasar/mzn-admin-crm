@@ -18,8 +18,9 @@ export const SalesCreate = (props: any) => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="image" />
+        <TextInput fullWidth source="image" />
         <SelectInput
+          fullWidth
           source="type"
           choices={[
             { id: 0, name: "Tanımlanmadı" },
@@ -29,20 +30,30 @@ export const SalesCreate = (props: any) => {
           label="Satış ve Alış"
         />
         <ReferenceInput
+          fullWidth
           label="Oluşturan Kişi"
           source="createBy"
           reference="users"
         >
-          <SelectInput optionText="firstName" label="Oluşturan  Kişi" />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label="Oluşturan  Kişi"
+          />
         </ReferenceInput>
-        <TextInput source="note" label={"Not"} />
-        <NumberInput source="price" label={"Tutar"} />
+        <TextInput fullWidth source="note" label={"Not"} />
+        <NumberInput fullWidth source="price" label={"Tutar"} />
         <ReferenceInput
           label="Oluşturan Kişi"
           source="reference"
           reference="leads"
+          fullWidth
         >
-          <SelectInput optionText="firstName" label="Oluşturulan leads varsa" />
+          <SelectInput
+            fullWidth
+            optionText="firstName"
+            label="Oluşturulan leads varsa"
+          />
         </ReferenceInput>
       </SimpleForm>
     </Create>

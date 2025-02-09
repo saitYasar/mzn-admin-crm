@@ -12,12 +12,13 @@ export const LeadsEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soyisim" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone" label="Telefon" />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soyisim" />
+        <TextInput fullWidth source="email" label="Email" />
+        <TextInput fullWidth source="phone" label="Telefon" />
 
         <SelectInput
+          fullWidth
           source="type"
           label="Müşteri Tipi"
           choices={[
@@ -31,6 +32,7 @@ export const LeadsEdit = (props: any) => {
         {record?.status != 6 && (
           <SelectInput
             source="status"
+            fullWidth
             label="Müşteri Durumu"
             choices={[
               { id: "0", name: "Yeni" },
@@ -45,9 +47,9 @@ export const LeadsEdit = (props: any) => {
           />
         )}
 
-        <TextInput source="call" label="Arama" />
-        <TextInput source="price" label="Teklif" />
-        <TextInput source="images" label="Resimler" />
+        <TextInput fullWidth source="call" label="Arama" />
+        <TextInput fullWidth source="price" label="Teklif" />
+        <TextInput fullWidth source="images" label="Resimler" />
       </SimpleForm>
     </Edit>
   );

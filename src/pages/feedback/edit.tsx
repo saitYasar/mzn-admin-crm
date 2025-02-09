@@ -23,30 +23,38 @@ export const FeedBackEdit = (props: any) => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="note" label="Note" />
-        <TextInput source="customerName" label="İsim" />
-        <TextInput source="customerSurname" label="Soy isim" />
-        <TextInput source="CustomerPhone" label="Müşteri Tel" />
+        <TextInput fullWidth source="note" label="Note" />
+        <TextInput fullWidth source="customerName" label="İsim" />
+        <TextInput fullWidth source="customerSurname" label="Soy isim" />
+        <TextInput fullWidth source="CustomerPhone" label="Müşteri Tel" />
 
         <SelectInput
           source="state"
           label={"Şikayet Durumu"}
           choices={SelectOptionss}
+          fullWidth
         />
 
         <SelectInput
           source="type"
           label={"Bildirim Tipi"}
+          fullWidth
           choices={SelectOptions}
         />
-        <ReferenceInput label="HakKında" source="targetUser" reference="users">
-          <SelectInput optionText="firstName" label="HakKında" />
+        <ReferenceInput
+          fullWidth
+          label="HakKında"
+          source="targetUser"
+          reference="users"
+        >
+          <SelectInput fullWidth optionText="firstName" label="HakKında" />
         </ReferenceInput>
         <BooleanInput
+          fullWidth
           source="didWriteOnComplaint"
           label={"Şikayet Vara yazıldı mı"}
         />
-        <TextInput source="teacherNote" label="Öğretmen Açıklama" />
+        <TextInput fullWidth source="teacherNote" label="Öğretmen Açıklama" />
       </SimpleForm>
     </Edit>
   );

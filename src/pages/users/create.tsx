@@ -29,13 +29,18 @@ export const UserCreate = (props: any) => {
   return (
     <Create {...props} transform={transform}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soyisim" />
-        <TextInput source="username" label="Kullanıcı Adı" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone" label="Telefon" />
-        <TextInput source="password" label="Şifre" />
-        <SelectInput source="role" label={"Rol"} choices={SelectOptions} />
+        <TextInput source="firstName" label="İsim" fullWidth />
+        <TextInput source="lastName" label="Soyisim" fullWidth />
+        <TextInput source="username" label="Kullanıcı Adı" fullWidth />
+        <TextInput source="email" label="Email" fullWidth />
+        <TextInput source="phone" label="Telefon" fullWidth />
+        <TextInput source="password" label="Şifre" fullWidth />
+        <SelectInput
+          fullWidth
+          source="role"
+          label={"Rol"}
+          choices={SelectOptions}
+        />
       </SimpleForm>
     </Create>
   );

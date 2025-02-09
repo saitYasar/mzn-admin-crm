@@ -35,11 +35,12 @@ export const MissionCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <DateInput source="targetDate" label="Atanma Tarihi" />
-        <DateInput source="endDate" label="Bitiş Tarihi" />
+        <DateInput fullWidth source="targetDate" label="Atanma Tarihi" />
+        <DateInput fullWidth source="endDate" label="Bitiş Tarihi" />
 
         <SelectInput
           source="status"
+          fullWidth
           label="Durum"
           choices={[
             { id: "0", name: "Yeni Açıldı" },
@@ -47,13 +48,15 @@ export const MissionCreate = (props: any) => {
             { id: "2", name: "Tamamlandı" },
           ]}
         />
-        <TextInput source="note" label="Not" />
+        <TextInput fullWidth source="note" label="Not" />
         <ReferenceInput
+          fullWidth
           label="Atanan Kişi"
           source="targetUser"
           reference="users"
         >
           <SelectInput
+            fullWidth
             optionText={(record) => `${record.firstName} ${record.lastName}`}
           />
         </ReferenceInput>

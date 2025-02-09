@@ -21,12 +21,17 @@ export const StudentCreate = (props: any) => {
   return (
     <Create transform={transform} {...props}>
       <SimpleForm>
-        <TextInput source="firstName" label="İsim" />
-        <TextInput source="lastName" label="Soyisim" />
-        <TextInput source="email" label="Email" />
-        <TextInput source="phone" label="Telefon" />
-        <DateInput source="serviceEndDate" label="Hizmet Bitiş Tarihi" />
+        <TextInput fullWidth source="firstName" label="İsim" />
+        <TextInput fullWidth source="lastName" label="Soyisim" />
+        <TextInput fullWidth source="email" label="Email" />
+        <TextInput fullWidth source="phone" label="Telefon" />
+        <DateInput
+          fullWidth
+          source="serviceEndDate"
+          label="Hizmet Bitiş Tarihi"
+        />
         <SelectInput
+          fullWidth
           source="status"
           label="Müşteri Durumu"
           choices={[
@@ -43,6 +48,7 @@ export const StudentCreate = (props: any) => {
         />
         <SelectInput
           source="type"
+          fullWidth
           label="Müşteri Tipi"
           choices={[
             { id: 0, name: "Tanımlanmadı" },
@@ -52,7 +58,7 @@ export const StudentCreate = (props: any) => {
             { id: 4, name: "Suspend" },
           ]}
         />
-        <TextInput source="call" label="Arama" />
+        <TextInput fullWidth source="call" label="Arama" />
       </SimpleForm>
     </Create>
   );

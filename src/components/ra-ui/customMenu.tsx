@@ -5,6 +5,11 @@ import UserIcon from "../ui/users";
 import MissionIcon from "../ui/missions";
 import LeadsIcon from "../ui/leads";
 import StudentIcon from "../ui/student";
+import Bildirim from "../ui/bildirim";
+import Ciro from "../ui/ciro";
+import Clock from "../ui/clock";
+import Access from "../ui/access";
+import Heart from "../ui/heart";
 import "./layout/table.css";
 // import SettingsIcon from "@mui/icons-material/Settings";
 
@@ -46,28 +51,20 @@ const CustomMenu = (props: any) => {
           <MenuItemLink
             to="/missions"
             primaryText="Görevler"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Access />}
           />
-          <MenuItemLink
-            to="/sale"
-            primaryText="Ciro"
-            leftIcon={<MissionIcon />}
-          />
+          <MenuItemLink to="/sale" primaryText="Ciro" leftIcon={<Bildirim />} />
           <MenuItemLink
             to="/add-working-hours"
             primaryText="Mesai Ekle"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Ciro />}
           />
           <MenuItemLink
             to="/feedback"
             primaryText="Geri Bildirim"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Clock />}
           />
-          <MenuItemLink
-            to="/sell"
-            primaryText="Satış"
-            leftIcon={<MissionIcon />}
-          />
+          <MenuItemLink to="/sell" primaryText="Satış" leftIcon={<Heart />} />
         </>
       ) : (
         <>
@@ -89,7 +86,7 @@ const CustomMenu = (props: any) => {
           <MenuItemLink
             to="/missions"
             primaryText="Görevler"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Access />}
           />
           {/* <MenuItemLink
             to="/sale"
@@ -99,18 +96,14 @@ const CustomMenu = (props: any) => {
           <MenuItemLink
             to="/add-working-hours"
             primaryText="Mesai Ekle"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Bildirim />}
           />
           <MenuItemLink
             to="/feedback"
             primaryText="Geri Bildirim"
-            leftIcon={<MissionIcon />}
+            leftIcon={<Ciro />}
           />
-          <MenuItemLink
-            to="/sell"
-            primaryText="Satış"
-            leftIcon={<MissionIcon />}
-          />
+          <MenuItemLink to="/sell" primaryText="Satış" leftIcon={<Clock />} />
         </>
       )}
     </Menu>
