@@ -1,147 +1,94 @@
-name: Deploy to Vercel (Preview & Prod)
+name: 00 - Preflight (No-Fail)
 
 on:
-  push:
-    branches:
-      - "**"
   workflow_dispatch:
 
-concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
-
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+permissions:
+  id-token: write # OIDC token testini yapmak için gerekli
+  contents: read
 
 jobs:
-  preview:
-    if: github.ref != 'refs/heads/main'
+  preflight:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write # OIDC için zorunlu
-      contents: read
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🔎 Branch bilgisi
+      - name: ℹ️ Context
         run: |
-          echo "🔍 Event: ${{ github.event_name }}"
-          echo "🔍 Ref: ${{ github.ref }}"
-          echo "🔍 Branch: ${GITHUB_REF##*/}"
+          echo "Repo:  $GITHUB_REPOSITORY"
+          echo "Ref:   $GITHUB_REF"
+          echo "SHA:   $GITHUB_SHA"
+          echo "Actor: $GITHUB_ACTOR"
+          echo "Runner OS: $(uname -a)"
+          echo "Node: $(node -v 2>/dev/null || echo 'yok')" 
+          echo "npm:  $(npm -v 2>/dev/null || echo 'yok')"
 
-      # INFISICAL → DEV (preview)
-      - name: 🔑 Infisical'dan DEV secret'ları çek
-        uses: Infisical/[email protected]
-        with:
-          method: oidc
-          identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
-          domain: ${{ secrets.INFISICAL_DOMAIN }}
-          env-slug: dev
-          project-slug: my-vercel-project-d0y-w
-          # .env dosyasına yazmak istersen yorumları aç:
-          # export-type: file
-          # file-output-path: ./.env
-
-      - name: 🧪 ENV testleri (CI aşaması)
+      - name: 🔐 Secrets var mı? (maskeli göstergeler)
         run: |
-          echo "---- ENV KONTROLÜ (CI) BAŞLADI ----"
-          if [ -z "${TEST_FLAG:-}" ]; then
-            echo "❌ TEST_FLAG yok (Infisical gelmedi)."
-            exit 1
-          fi
-          LEN=${#TEST_FLAG}
-          HASH=$(printf "%s" "$TEST_FLAG" | sha256sum | cut -c1-8)
-          echo "✅ TEST_FLAG mevcut. Uzunluk: $LEN, Hash8: $HASH"
-          if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
-            L2=${#NEXT_PUBLIC_TEST_FLAG}
-            H2=$(printf "%s" "$NEXT_PUBLIC_TEST_FLAG" | sha256sum | cut -c1-8)
-            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut. Uzunluk: $L2, Hash8: $H2"
+          set +e
+          mask_hash () { test -n "$1" && printf "%s" "$1" | sha256sum | cut -c1-8 || echo "<yok>"; }
+          echo "VERCEL_TOKEN len: ${#VERCEL_TOKEN:-0} hash8: $(mask_hash "$VERCEL_TOKEN")"
+          echo "VERCEL_PROJECT_ID len: ${#VERCEL_PROJECT_ID:-0} hash8: $(mask_hash "$VERCEL_PROJECT_ID")"
+          echo "VERCEL_ORG_ID len: ${#VERCEL_ORG_ID:-0} hash8: $(mask_hash "$VERCEL_ORG_ID")"
+          echo "INFISICAL_DOMAIN: ${INFISICAL_DOMAIN:-<yok>}"
+          echo "INFISICAL_IDENTITY_ID len: ${#INFISICAL_IDENTITY_ID:-0} hash8: $(mask_hash "$INFISICAL_IDENTITY_ID")"
+          echo "✅ Bu adım sadece var/yok bilgisini loglar; gerçek değerler maskelenir."
+
+      - name: 🌐 Infisical domain DNS & HTTP kontrol
+        run: |
+          set +e
+          if [ -z "${INFISICAL_DOMAIN:-}" ]; then
+            echo "⚠️ INFISICAL_DOMAIN yok; ağ testleri atlandı."
           else
-            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG tanımlı değil (opsiyonel)."
+            HOST=$(echo "$INFISICAL_DOMAIN" | sed -E 's#^https?://##' | cut -d/ -f1)
+            echo "Test edilecek host: $HOST"
+            echo "DNS:"
+            getent hosts "$HOST" || echo "⚠️ DNS çözümlemesi başarısız olabilir."
+            echo "HTTP HEAD:"
+            curl -sS -I --max-time 8 "$INFISICAL_DOMAIN" | sed -n '1,5p' || echo "⚠️ HTTP erişimi başarısız olabilir."
           fi
-          echo "---- ENV KONTROLÜ (CI) BİTTİ ----"
 
-      - name: 📦 Vercel CLI yükleniyor
-        run: npm i -g vercel@latest
-
-      - name: 📥 Vercel env (preview) çekiliyor
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: 🧪 Build öncesi ENV testi
+      - name: 🔏 OIDC token mint (sadece uzunluk/log)
         run: |
-          echo "---- BUILD ÖNCESİ ENV (preview) ----"
-          echo "TEST_FLAG len: ${#TEST_FLAG:-0}"
-          echo "NEXT_PUBLIC_TEST_FLAG len: ${#NEXT_PUBLIC_TEST_FLAG:-0}"
-          echo "-------------------------------------"
-
-      - name: 🏗 Build (preview)
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: 🚀 Deploy (preview)
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
-
-  production:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: 🔎 Branch bilgisi
-        run: |
-          echo "🔍 Event: ${{ github.event_name }}"
-          echo "🔍 Ref: ${{ github.ref }}"
-          echo "🔍 Branch: ${GITHUB_REF##*/}"
-
-      # INFISICAL → PROD
-      - name: 🔑 Infisical'dan PROD secret'ları çek
-        uses: Infisical/[email protected]
-        with:
-          method: oidc
-          identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
-          domain: ${{ secrets.INFISICAL_DOMAIN }}
-          env-slug: prod
-          project-slug: my-vercel-project-d0y-w
-
-      - name: 🧪 ENV testleri (CI aşaması)
-        run: |
-          echo "---- ENV KONTROLÜ (CI) BAŞLADI ----"
-          if [ -z "${TEST_FLAG:-}" ]; then
-            echo "❌ TEST_FLAG yok (Infisical gelmedi)."
-            exit 1
-          fi
-          LEN=${#TEST_FLAG}
-          HASH=$(printf "%s" "$TEST_FLAG" | sha256sum | cut -c1-8)
-          echo "✅ TEST_FLAG mevcut. Uzunluk: $LEN, Hash8: $HASH"
-          if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
-            L2=${#NEXT_PUBLIC_TEST_FLAG}
-            H2=$(printf "%s" "$NEXT_PUBLIC_TEST_FLAG" | sha256sum | cut -c1-8)
-            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut. Uzunluk: $L2, Hash8: $H2"
+          set +e
+          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
+            echo "⚠️ Runner OIDC değişkenleri yok gibi."
           else
-            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG tanımlı değil (opsiyonel)."
+            # audience serbest; Infisical tarafında çoğunlukla önemli değil, 'infisical' diyelim
+            RESP=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=infisical")
+            TOK=$(echo "$RESP" | jq -r '.value' 2>/dev/null)
+            if [ -n "$TOK" ] && [ "$TOK" != "null" ]; then
+              echo "✅ OIDC token alındı. Uzunluk: ${#TOK}"
+            else
+              echo "⚠️ OIDC token alınamadı. Yanıt:"
+              echo "$RESP" | head -n 20
+            fi
           fi
-          echo "---- ENV KONTROLÜ (CI) BİTTİ ----"
 
-      - name: 📦 Vercel CLI yükleniyor
-        run: npm i -g vercel@latest
-
-      - name: 📥 Vercel env (prod) çekiliyor
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: 🧪 Build öncesi ENV testi
+      - name: 📦 Vercel CLI kurulumu
         run: |
-          echo "---- BUILD ÖNCESİ ENV (prod) ----"
-          echo "TEST_FLAG len: ${#TEST_FLAG:-0}"
-          echo "NEXT_PUBLIC_TEST_FLAG len: ${#NEXT_PUBLIC_TEST_FLAG:-0}"
-          echo "----------------------------------"
+          set +e
+          npm i -g vercel@latest >/dev/null 2>&1 && echo "✅ vercel kuruldu" || echo "⚠️ vercel kurulamadı"
+          vercel --version || true
 
-      - name: 🏗 Build (prod)
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: 🗂️ .vercel/project.json (varsa) oku - maskeli
+        run: |
+          set +e
+          if [ -f ".vercel/project.json" ]; then
+            echo "Bulundu: .vercel/project.json"
+            ORG=$(jq -r '.orgId' .vercel/project.json 2>/dev/null)
+            PRJ=$(jq -r '.projectId' .vercel/project.json 2>/dev/null)
+            # Maskeli göster
+            short() { test -n "$1" && echo "${1:0:6}******" || echo "<yok>"; }
+            echo "orgId: $(short "$ORG")"
+            echo "projectId: $(short "$PRJ")"
+          else
+            echo "ℹ️ .vercel/project.json yok."
+          fi
 
-      - name: 🚀 Deploy (prod)
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: ✅ Sonuç
+        run: |
+          echo "Preflight tamamlandı. Hiçbir adım hata ile durdurulmadı."
+          echo "🔎 Logları inceleyip eksik noktaları sırayla kapatacağız."
