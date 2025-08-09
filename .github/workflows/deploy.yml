@@ -33,7 +33,7 @@ jobs:
           echo "VERCEL_ORG_ID len: ${#VERCEL_ORG_ID:-0} hash8: $(mask_hash "$VERCEL_ORG_ID")"
           echo "INFISICAL_DOMAIN: ${INFISICAL_DOMAIN:-<yok>}"
           echo "INFISICAL_IDENTITY_ID len: ${#INFISICAL_IDENTITY_ID:-0} hash8: $(mask_hash "$INFISICAL_IDENTITY_ID")"
-          echo "✅ Bu adım sadece var/yok bilgisini loglar; gerçek değerler maskelenir."
+          echo "✅ Bu adım sadece var/yok bilgisini loglar; gerçek değerler maskelenir. deneme"
 
       - name: 🌐 Infisical domain DNS & HTTP kontrol
         run: |
