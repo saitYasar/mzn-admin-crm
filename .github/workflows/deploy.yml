@@ -19,32 +19,49 @@ jobs:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
+      id-token: write # OIDC için zorunlu
       contents: read
     steps:
-      - name: 📥 Checkout kod
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🔑 Infisical'dan DEV (preview) secret'ları çek
-        uses: infisical/[email protected]
+      - name: 🔎 Branch bilgisi
+        run: |
+          echo "🔍 Event: ${{ github.event_name }}"
+          echo "🔍 Ref: ${{ github.ref }}"
+          echo "🔍 Branch: ${GITHUB_REF##*/}"
+
+      # INFISICAL → DEV (preview)
+      - name: 🔑 Infisical'dan DEV secret'ları çek
+        uses: Infisical/[email protected]
         with:
           method: oidc
           identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
           domain: ${{ secrets.INFISICAL_DOMAIN }}
           env-slug: dev
           project-slug: my-vercel-project-d0y-w
+          # .env dosyasına yazmak istersen yorumları aç:
+          # export-type: file
+          # file-output-path: ./.env
 
       - name: 🧪 ENV testleri (CI aşaması)
         run: |
-          echo "---- ENV KONTROLÜ BAŞLADI ----"
-          echo "TEST_FLAG = ${TEST_FLAG:-<yok>}"
-          echo "NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          echo "---- ENV KONTROLÜ (CI) BAŞLADI ----"
           if [ -z "${TEST_FLAG:-}" ]; then
             echo "❌ TEST_FLAG yok (Infisical gelmedi)."
             exit 1
           fi
-          echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
-          echo "---- ENV KONTROLÜ BİTTİ ----"
+          LEN=${#TEST_FLAG}
+          HASH=$(printf "%s" "$TEST_FLAG" | sha256sum | cut -c1-8)
+          echo "✅ TEST_FLAG mevcut. Uzunluk: $LEN, Hash8: $HASH"
+          if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
+            L2=${#NEXT_PUBLIC_TEST_FLAG}
+            H2=$(printf "%s" "$NEXT_PUBLIC_TEST_FLAG" | sha256sum | cut -c1-8)
+            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut. Uzunluk: $L2, Hash8: $H2"
+          else
+            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG tanımlı değil (opsiyonel)."
+          fi
+          echo "---- ENV KONTROLÜ (CI) BİTTİ ----"
 
       - name: 📦 Vercel CLI yükleniyor
         run: npm i -g vercel@latest
@@ -54,8 +71,10 @@ jobs:
 
       - name: 🧪 Build öncesi ENV testi
         run: |
-          echo "Build aşamasında TEST_FLAG = ${TEST_FLAG:-<yok>}"
-          echo "Build aşamasında NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          echo "---- BUILD ÖNCESİ ENV (preview) ----"
+          echo "TEST_FLAG len: ${#TEST_FLAG:-0}"
+          echo "NEXT_PUBLIC_TEST_FLAG len: ${#NEXT_PUBLIC_TEST_FLAG:-0}"
+          echo "-------------------------------------"
 
       - name: 🏗 Build (preview)
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
@@ -70,11 +89,18 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: 📥 Checkout kod
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
+      - name: 🔎 Branch bilgisi
+        run: |
+          echo "🔍 Event: ${{ github.event_name }}"
+          echo "🔍 Ref: ${{ github.ref }}"
+          echo "🔍 Branch: ${GITHUB_REF##*/}"
+
+      # INFISICAL → PROD
       - name: 🔑 Infisical'dan PROD secret'ları çek
-        uses: infisical/[email protected]
+        uses: Infisical/[email protected]
         with:
           method: oidc
           identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
@@ -84,15 +110,22 @@ jobs:
 
       - name: 🧪 ENV testleri (CI aşaması)
         run: |
-          echo "---- ENV KONTROLÜ BAŞLADI ----"
-          echo "TEST_FLAG = ${TEST_FLAG:-<yok>}"
-          echo "NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          echo "---- ENV KONTROLÜ (CI) BAŞLADI ----"
           if [ -z "${TEST_FLAG:-}" ]; then
             echo "❌ TEST_FLAG yok (Infisical gelmedi)."
             exit 1
           fi
-          echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
-          echo "---- ENV KONTROLÜ BİTTİ ----"
+          LEN=${#TEST_FLAG}
+          HASH=$(printf "%s" "$TEST_FLAG" | sha256sum | cut -c1-8)
+          echo "✅ TEST_FLAG mevcut. Uzunluk: $LEN, Hash8: $HASH"
+          if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
+            L2=${#NEXT_PUBLIC_TEST_FLAG}
+            H2=$(printf "%s" "$NEXT_PUBLIC_TEST_FLAG" | sha256sum | cut -c1-8)
+            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut. Uzunluk: $L2, Hash8: $H2"
+          else
+            echo "ℹ️ NEXT_PUBLIC_TEST_FLAG tanımlı değil (opsiyonel)."
+          fi
+          echo "---- ENV KONTROLÜ (CI) BİTTİ ----"
 
       - name: 📦 Vercel CLI yükleniyor
         run: npm i -g vercel@latest
@@ -102,8 +135,10 @@ jobs:
 
       - name: 🧪 Build öncesi ENV testi
         run: |
-          echo "Build aşamasında TEST_FLAG = ${TEST_FLAG:-<yok>}"
-          echo "Build aşamasında NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          echo "---- BUILD ÖNCESİ ENV (prod) ----"
+          echo "TEST_FLAG len: ${#TEST_FLAG:-0}"
+          echo "NEXT_PUBLIC_TEST_FLAG len: ${#NEXT_PUBLIC_TEST_FLAG:-0}"
+          echo "----------------------------------"
 
       - name: 🏗 Build (prod)
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
