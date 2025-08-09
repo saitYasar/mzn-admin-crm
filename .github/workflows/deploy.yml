@@ -1,0 +1,11 @@
+- name: Verify Infisical env in CI
+  run: |
+    if [ -z "${TEST_FLAG:-}" ]; then
+      echo "❌ TEST_FLAG yok (Infisical gelmedi)."
+      exit 1
+    fi
+    echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
+    # Public değişkeni de geldiyse (gelmeyebilir, client build sırasında kullanılacak)
+    if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
+      echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut (client build'te kullanılabilir)."
+    fi
