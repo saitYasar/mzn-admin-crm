@@ -1,11 +1,112 @@
-- name: Verify Infisical env in CI
-  run: |
-    if [ -z "${TEST_FLAG:-}" ]; then
-      echo "❌ TEST_FLAG yok (Infisical gelmedi)."
-      exit 1
-    fi
-    echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
-    # Public değişkeni de geldiyse (gelmeyebilir, client build sırasında kullanılacak)
-    if [ -n "${NEXT_PUBLIC_TEST_FLAG:-}" ]; then
-      echo "ℹ️ NEXT_PUBLIC_TEST_FLAG mevcut (client build'te kullanılabilir)."
-    fi
+name: Deploy to Vercel (Preview & Prod)
+
+on:
+  push:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  preview:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: 📥 Checkout kod
+        uses: actions/checkout@v4
+
+      - name: 🔑 Infisical'dan DEV (preview) secret'ları çek
+        uses: infisical/[email protected]
+        with:
+          method: oidc
+          identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
+          domain: ${{ secrets.INFISICAL_DOMAIN }}
+          env-slug: dev
+          project-slug: my-vercel-project-d0y-w
+
+      - name: 🧪 ENV testleri (CI aşaması)
+        run: |
+          echo "---- ENV KONTROLÜ BAŞLADI ----"
+          echo "TEST_FLAG = ${TEST_FLAG:-<yok>}"
+          echo "NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          if [ -z "${TEST_FLAG:-}" ]; then
+            echo "❌ TEST_FLAG yok (Infisical gelmedi)."
+            exit 1
+          fi
+          echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
+          echo "---- ENV KONTROLÜ BİTTİ ----"
+
+      - name: 📦 Vercel CLI yükleniyor
+        run: npm i -g vercel@latest
+
+      - name: 📥 Vercel env (preview) çekiliyor
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🧪 Build öncesi ENV testi
+        run: |
+          echo "Build aşamasında TEST_FLAG = ${TEST_FLAG:-<yok>}"
+          echo "Build aşamasında NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+
+      - name: 🏗 Build (preview)
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🚀 Deploy (preview)
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+
+  production:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: 📥 Checkout kod
+        uses: actions/checkout@v4
+
+      - name: 🔑 Infisical'dan PROD secret'ları çek
+        uses: infisical/[email protected]
+        with:
+          method: oidc
+          identity-id: ${{ secrets.INFISICAL_IDENTITY_ID }}
+          domain: ${{ secrets.INFISICAL_DOMAIN }}
+          env-slug: prod
+          project-slug: my-vercel-project-d0y-w
+
+      - name: 🧪 ENV testleri (CI aşaması)
+        run: |
+          echo "---- ENV KONTROLÜ BAŞLADI ----"
+          echo "TEST_FLAG = ${TEST_FLAG:-<yok>}"
+          echo "NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+          if [ -z "${TEST_FLAG:-}" ]; then
+            echo "❌ TEST_FLAG yok (Infisical gelmedi)."
+            exit 1
+          fi
+          echo "✅ TEST_FLAG mevcut. Uzunluk: ${#TEST_FLAG}"
+          echo "---- ENV KONTROLÜ BİTTİ ----"
+
+      - name: 📦 Vercel CLI yükleniyor
+        run: npm i -g vercel@latest
+
+      - name: 📥 Vercel env (prod) çekiliyor
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🧪 Build öncesi ENV testi
+        run: |
+          echo "Build aşamasında TEST_FLAG = ${TEST_FLAG:-<yok>}"
+          echo "Build aşamasında NEXT_PUBLIC_TEST_FLAG = ${NEXT_PUBLIC_TEST_FLAG:-<yok>}"
+
+      - name: 🏗 Build (prod)
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🚀 Deploy (prod)
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
