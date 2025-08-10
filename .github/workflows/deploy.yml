@@ -1,19 +1,25 @@
 name: Secrets Check
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   check-secrets:
     runs-on: ubuntu-latest
     steps:
       - name: 🔐 Secrets erişim kontrolü
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         shell: bash
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          INFISICAL_DOMAIN: ${{ secrets.INFISICAL_DOMAIN }}
+          INFISICAL_IDENTITY_ID: ${{ secrets.INFISICAL_IDENTITY_ID }}
         run: |
           check_secret() {
             local name="$1"
@@ -27,7 +33,6 @@ jobs:
             fi
           }
 
-          # Buraya kontrol etmek istediğin secret isimlerini yaz
           check_secret "VERCEL_TOKEN"
           check_secret "VERCEL_PROJECT_ID"
           check_secret "VERCEL_ORG_ID"
