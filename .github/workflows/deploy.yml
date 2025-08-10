@@ -1,94 +1,30 @@
-name: 00 - Preflight (No-Fail)
+name: Secrets Check
 
 on:
   workflow_dispatch:
 
-permissions:
-  id-token: write # OIDC token testini yapmak için gerekli
-  contents: read
-
 jobs:
-  preflight:
+  check-secrets:
     runs-on: ubuntu-latest
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: ℹ️ Context
+      - name: 🔐 Secrets erişim kontrolü
+        shell: bash
         run: |
-          echo "Repo:  $GITHUB_REPOSITORY"
-          echo "Ref:   $GITHUB_REF"
-          echo "SHA:   $GITHUB_SHA"
-          echo "Actor: $GITHUB_ACTOR"
-          echo "Runner OS: $(uname -a)"
-          echo "Node: $(node -v 2>/dev/null || echo 'yok')" 
-          echo "npm:  $(npm -v 2>/dev/null || echo 'yok')"
-
-      - name: 🔐 Secrets var mı? (maskeli göstergeler)
-        run: |
-          set +e
-          mask_hash () { test -n "$1" && printf "%s" "$1" | sha256sum | cut -c1-8 || echo "<yok>"; }
-          echo "VERCEL_TOKEN len: ${#VERCEL_TOKEN:-0} hash8: $(mask_hash "$VERCEL_TOKEN")"
-          echo "VERCEL_PROJECT_ID len: ${#VERCEL_PROJECT_ID:-0} hash8: $(mask_hash "$VERCEL_PROJECT_ID")"
-          echo "VERCEL_ORG_ID len: ${#VERCEL_ORG_ID:-0} hash8: $(mask_hash "$VERCEL_ORG_ID")"
-          echo "INFISICAL_DOMAIN: ${INFISICAL_DOMAIN:-<yok>}"
-          echo "INFISICAL_IDENTITY_ID len: ${#INFISICAL_IDENTITY_ID:-0} hash8: $(mask_hash "$INFISICAL_IDENTITY_ID")"
-          echo "✅ Bu adım sadece var/yok bilgisini loglar; gerçek değerler maskelenir. deneme"
-
-      - name: 🌐 Infisical domain DNS & HTTP kontrol
-        run: |
-          set +e
-          if [ -z "${INFISICAL_DOMAIN:-}" ]; then
-            echo "⚠️ INFISICAL_DOMAIN yok; ağ testleri atlandı."
-          else
-            HOST=$(echo "$INFISICAL_DOMAIN" | sed -E 's#^https?://##' | cut -d/ -f1)
-            echo "Test edilecek host: $HOST"
-            echo "DNS:"
-            getent hosts "$HOST" || echo "⚠️ DNS çözümlemesi başarısız olabilir."
-            echo "HTTP HEAD:"
-            curl -sS -I --max-time 8 "$INFISICAL_DOMAIN" | sed -n '1,5p' || echo "⚠️ HTTP erişimi başarısız olabilir."
-          fi
-
-      - name: 🔏 OIDC token mint (sadece uzunluk/log)
-        run: |
-          set +e
-          if [ -z "${ACTIONS_ID_TOKEN_REQUEST_URL:-}" ] || [ -z "${ACTIONS_ID_TOKEN_REQUEST_TOKEN:-}" ]; then
-            echo "⚠️ Runner OIDC değişkenleri yok gibi."
-          else
-            # audience serbest; Infisical tarafında çoğunlukla önemli değil, 'infisical' diyelim
-            RESP=$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-              "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=infisical")
-            TOK=$(echo "$RESP" | jq -r '.value' 2>/dev/null)
-            if [ -n "$TOK" ] && [ "$TOK" != "null" ]; then
-              echo "✅ OIDC token alındı. Uzunluk: ${#TOK}"
+          check_secret() {
+            local name="$1"
+            local value="${!name}"
+            if [ -n "$value" ]; then
+              local len=${#value}
+              local hash=$(printf "%s" "$value" | sha256sum | cut -c1-8)
+              echo "$name ✅ var | length: $len | hash8: $hash"
             else
-              echo "⚠️ OIDC token alınamadı. Yanıt:"
-              echo "$RESP" | head -n 20
+              echo "$name ❌ yok"
             fi
-          fi
+          }
 
-      - name: 📦 Vercel CLI kurulumu
-        run: |
-          set +e
-          npm i -g vercel@latest >/dev/null 2>&1 && echo "✅ vercel kuruldu" || echo "⚠️ vercel kurulamadı"
-          vercel --version || true
-
-      - name: 🗂️ .vercel/project.json (varsa) oku - maskeli
-        run: |
-          set +e
-          if [ -f ".vercel/project.json" ]; then
-            echo "Bulundu: .vercel/project.json"
-            ORG=$(jq -r '.orgId' .vercel/project.json 2>/dev/null)
-            PRJ=$(jq -r '.projectId' .vercel/project.json 2>/dev/null)
-            # Maskeli göster
-            short() { test -n "$1" && echo "${1:0:6}******" || echo "<yok>"; }
-            echo "orgId: $(short "$ORG")"
-            echo "projectId: $(short "$PRJ")"
-          else
-            echo "ℹ️ .vercel/project.json yok."
-          fi
-
-      - name: ✅ Sonuç
-        run: |
-          echo "Preflight tamamlandı. Hiçbir adım hata ile durdurulmadı."
-          echo "🔎 Logları inceleyip eksik noktaları sırayla kapatacağız."
+          # Buraya kontrol etmek istediğin secret isimlerini yaz
+          check_secret "VERCEL_TOKEN"
+          check_secret "VERCEL_PROJECT_ID"
+          check_secret "VERCEL_ORG_ID"
+          check_secret "INFISICAL_DOMAIN"
+          check_secret "INFISICAL_IDENTITY_ID"
